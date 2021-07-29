@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/rounded_square_background"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="48dp"
+        >
+        <TextView
+            android:id="@+id/customAlertDialogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_marginVertical="@dimen/marginContainer"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/customAlertDialogOkButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/marginContainer"
+            />
+
+        <TextView
+            android:id="@+id/customAlertDialogCancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_marginVertical="@dimen/marginContainer"
+            />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/cartStroke"
+        android:background="@drawable/circle_background"
+        >
+        <View
+            android:layout_width="@dimen/cartCircleIconBackgroundSize"
+            android:layout_height="@dimen/cartCircleIconBackgroundSize"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="@color/purple_700" />
+
+        <ImageView
+            android:layout_width="@dimen/pageIconSize"
+            android:layout_height="@dimen/pageIconSize"
+            android:contentDescription="@string/attention_notice"
+            android:src="@drawable/ic_warn" />
+    </FrameLayout>
+
+
+
+
+
+</FrameLayout>

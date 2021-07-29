@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/marginContainer"
+    >
+
+    <TextView
+        android:id="@+id/videoRecyclerViewWeek"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/video_valid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/videoRecyclerViewDate"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginSubContainer"
+        android:textAlignment="center"
+        android:text="@string/video_valid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoRecyclerViewWeek" />
+
+    <ImageView
+        android:id="@+id/videoRecyclerViewStatusIcon"
+        android:layout_width="@dimen/recyclerViewStatusIconSize"
+        android:layout_height="@dimen/recyclerViewStatusIconSize"
+        android:contentDescription="@string/video_valid"
+        android:src="@drawable/ic_success"
+        android:layout_marginEnd="@dimen/marginSubContainer"
+        app:layout_constraintBottom_toBottomOf="@+id/videoRecyclerViewStatusTextView"
+        app:layout_constraintEnd_toStartOf="@+id/videoRecyclerViewStatusTextView"
+        app:layout_constraintTop_toTopOf="@+id/videoRecyclerViewStatusTextView" />
+
+    <TextView
+        android:id="@+id/videoRecyclerViewStatusTextView"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video_valid"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/videoRecyclerViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/videoRecyclerViewWeek" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/videoRecyclerViewRetryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginContainer"
+        android:background="@drawable/round_button_outline_bg"
+        android:enabled="true"
+        android:visibility="gone"
+        android:text="@string/record_again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoRecyclerViewDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

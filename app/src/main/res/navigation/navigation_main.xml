@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/videosFragment">
+
+    <fragment
+        android:id="@+id/videosFragment"
+        android:name="com.solidict.ada.ui.fragments.main.videos_fragment.VideosFragment"
+        android:label="fragment_videos"
+        tools:layout="@layout/fragment_videos">
+        <action
+            android:id="@+id/action_videosFragment_to_navigaiton_video_record"
+            app:destination="@id/navigaiton_video_record" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.solidict.ada.ui.fragments.main.profile_fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <include app:graph="@navigation/navigaiton_video_record" />
+</navigation>

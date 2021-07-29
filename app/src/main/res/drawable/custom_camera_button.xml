@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item>
+            <shape android:shape="oval">
+                <solid
+                    android:color="@android:color/holo_red_dark"
+                    />
+                <corners
+                    android:radius="@dimen/camera_button_radius_size"
+                    />
+
+            </shape>
+        </item>
+
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="@dimen/cartStroke"
+                android:color="@color/white"
+                />
+            <corners
+                android:radius="@dimen/camera_button_radius_size"
+                />
+
+        </shape>
+    </item>
+
+
+</layer-list>

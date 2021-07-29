@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid
+        android:color="@color/purple_500"
+        />
+    <padding
+        android:bottom="@dimen/marginContainer"
+        android:start="@dimen/marginContainer"
+        android:end="@dimen/marginContainer"
+        android:top="@dimen/marginContainer"
+        />
+
+    <corners
+        android:radius="@dimen/buttonBorderRadius"
+        />
+
+</shape>

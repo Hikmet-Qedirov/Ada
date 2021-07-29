@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_square_background"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <ProgressBar
+        android:layout_width="@dimen/cartCircleIconBackgroundSize"
+        android:layout_height="@dimen/cartCircleIconBackgroundSize"
+        android:layout_margin="@dimen/buttonPaddingSize"
+        android:indeterminateTint="@color/purple_700"
+        />
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/cartStroke"
+                android:color="@color/purple_700"
+                />
+            <corners
+                android:radius="@dimen/buttonBorderRadius"
+                />
+        </shape>
+    </item>
+
+</layer-list>

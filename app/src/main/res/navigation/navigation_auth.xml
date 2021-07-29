@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_auth"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/authWelcomeFragment"
+        android:name="com.solidict.ada.ui.fragments.auth.auth_welcome_fragment.AuthWelcomeFragment"
+        android:label="fragment_auth_welcome"
+        tools:layout="@layout/fragment_auth_welcome">
+        <action
+            android:id="@+id/action_authWelcomeFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/navigation_from_left"
+            app:exitAnim="@anim/navigationto_right"
+            app:popEnterAnim="@anim/navigation_from_right"
+            app:popExitAnim="@anim/navigation_to_left" />
+        <action
+            android:id="@+id/action_authWelcomeFragment_to_authNumberVerificationFragment"
+            app:destination="@id/authNumberVerificationFragment"
+            app:enterAnim="@anim/navigation_from_right"
+            app:exitAnim="@anim/navigation_to_left"
+            app:popEnterAnim="@anim/navigation_from_left"
+            app:popExitAnim="@anim/navigationto_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/authNumberVerificationFragment"
+        android:name="com.solidict.ada.ui.fragments.auth.auth_number_verification_fragment.AuthNumberVerificationFragment"
+        android:label="fragment_auth_number_verification"
+        tools:layout="@layout/fragment_auth_number_verification">
+        <action
+            android:id="@+id/action_authNumberVerificationFragment_to_authLoginFragment"
+            app:destination="@id/authLoginFragment"
+            app:enterAnim="@anim/navigation_from_right"
+            app:exitAnim="@anim/navigation_to_left"
+            app:popEnterAnim="@anim/navigation_from_left"
+            app:popExitAnim="@anim/navigationto_right"
+            app:popUpTo="@id/authNumberVerificationFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="authResponse"
+            app:argType="com.solidict.ada.model.auth.AuthResponse" />
+        <argument
+            android:name="number"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.solidict.ada.ui.components.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
+        <argument
+            android:name="webViewUrl"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/authLoginFragment"
+        android:name="com.solidict.ada.ui.fragments.auth.auth_login_fragment.AuthLoginFragment"
+        android:label="fragment_auth_login"
+        tools:layout="@layout/fragment_auth_login">
+        <action
+            android:id="@+id/action_authLoginFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_authLoginFragment_to_mainFragment2"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.solidict.ada.ui.fragments.SplashScreenFragment"
+        android:label="splash_screen"
+        tools:layout="@layout/splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_authWelcomeFragment"
+            app:destination="@id/authWelcomeFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_authLoginFragment"
+            app:destination="@id/authLoginFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

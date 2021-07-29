@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">Ada</string>
+    <string name="ada_welcome_text">ADA uygulamasına hoş geldiniz.</string>
+    <string name="ada_welcome_context_text">ADA\'yı kullanabilmek için telefon numaranız ile giriş yapmanız gerekmektedir.</string>
+    <string name="enter_your_phone_number">Telefon Numaranızı Girin</string>
+    <string name="go_on">Devam et</string>
+    <string name="about_this_app_development">Kullanmakta olduğunuz sürüm erken aşama sürümüdür, geliştirmelerimiz devam etmektedir.</string>
+    <string name="about_medical_director">Medikal Direktor Hakkında Bilgi</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="terms_of_use">Kullanım Koşulları</string>
+    <string name="verification_code">Doğrulama Kodu</string>
+    <string name="submit_code_again">Tekrar Kod Gönder</string>
+    <string name="please_enter_your_childs_information">Lütfen çocuğunuzun bilgilerini girin</string>
+    <string name="name_surname">İsim Soyisim</string>
+    <string name="expected_date_of_birth">Beklenen Doğum Tarihi</string>
+    <string name="actual_date_of_birth">Gerçek Doğum Tarihi</string>
+    <string name="birth_weight">Doğum Kilosu</string>
+    <string name="gender">Cinsiyet</string>
+    <string name="enter_bird_weight_like_gram">(gram cinsinden girin ör: 3250)</string>
+    <string name="girl">Kız</string>
+    <string name="boy">Erkek</string>
+    <string name="referring_doctor_name">Yönlendiren Doktor İsmi</string>
+    <string name="optional">(opsiyonel)</string>
+    <string name="email_address">Email Adresi</string>
+    <string name="required_to_submit_the_report">* Raporu göndermek için gereklidir.</string>
+    <string name="privacy_policy_and_terms_of_use">Gizlilik Politikasını ve Kullanım Koşullarını</string>
+    <string name="i_have_read_approve">okudum, onaylıyorum</string>
+    <string name="I_will_not_be_able_to_get_a_report_without_paying_this_fee">CP Uygulaması ücretli bir uygulamadır sizden kayıt sırasında ücret talep edilmez, sürecin sonunda rapor üretilmesi için XX TL ücret talep edilecektir, bu ücreti ödemeden rapor alamayacağım</string>
+    <string name="attention_notice">Girdiğiniz bilgiler daha sonra güncellenemez. Lütfen bilgilerin doğruluğundan emin olarak devam edin.</string>
+    <string name="my_information_is_correct">Bilgilerim Doğru</string>
+    <string name="go_back">Geri dön</string>
+    <string name="videos">Videolar</string>
+    <string name="profile">Profil</string>
+    <string name="record_a_video">Video Çek </string>
+    <string name="empty_video_list">Henüz hiç video çekmediniz.\n Videolarınız siz çektikten sonra burada görünür.</string>
+    <string name="press_ready_after_following_preparations">Lütfen aşağıdaki hazırlıkları yaptıktan sonra işaretleyip hazırıma basın</string>
+    <string name="i_lay_black_sheets">Siyah çarşaf serdim</string>
+    <string name="i_took_off_the_babys_clothes">Bebeğin kiyafetlerini çıkardım</string>
+    <string name="i_set_the_camera_to_capture_the_babys_entire_body">Kamerayı bebeğin tüm vücudunu çekecek şekilde ayarladım</string>
+    <string name="i_am_ready">Hazırım</string>
+    <string name="warn_video_record">
+        Lütfen süre bitene kadar kamerayı sabit tutun ve
+        video çekiminin bitmesini bekleyin
+    </string>
+    <string name="error_video_record">
+        Video çekmediniz. Video çekmeniz gerekli
+    </string>
+    <string name="ok">Tamam</string>
+    <string name="video_uploading_message">Videonuz değerlendiriliyor.\nSonucunu videolar bölümünden takip edebilirsiniz.</string>
+    <string name="week">Hafta</string>
+    <string name="video_valid">Video Geçerli</string>
+    <string name="Evaluating">Değerlendiriliyor</string>
+    <string name="record_new_video">Yeni Video çek</string>
+    <string name="record_again">Tekrar çek</string>
+    <string name="request_report">Rapor Talep Et </string>
+    <string name="contact_us">Bize Ulaşın</string>
+    <string name="context_contact_us">Bilgilerde hata olduğunu düşünüyorsanız, bize ulaşabilirsiniz.</string>
+    <string name="video_report_content">
+        İsteğiniz gönderilmiştir. Değerlendirilecektir</string>
+
+    <string name="lost_internet_connection">İnternet bağlantısı yok</string>
+    <string name="have_internet_connection">İnternet bağlantısı var</string>
+    <string name="number_code_country">+90</string>
+
+    <!-- material date picker   -->
+    <string name="mtrl_picker_confirm" description="Button text to indicate that the widget will save the user's selection [CHAR_LIMIT=16]">Devam et</string>
+    <string name="mtrl_picker_cancel" description="Button text to indicate that the widget will ignore the user's selection [CHAR_LIMIT=16]" translatable="false">Geri dön</string>
+
+    <string name="success_submit_code_again">Tekrar Kod Gönderildi</string>
+
+    <!--  wrong string  -->
+    <string name="warn_log_in">
+        Lütfen kırmızı ile işaretli olan bütün alanları doldurunuz ve kutuları işaretleyiniz
+    </string>
+    <string name="wrong_included_number">Numara yanlış</string>
+    <string name="wrong_included_email">Email yanlış</string>
+    <string name="retry">Hata oluştu. Tekrar dene</string>
+    <string name="wrong_name">İsim yanlış</string>
+    <string name="wrong_weight">Doğum kilosu yanlış</string>
+    <string name="wrong_doctor_name">Doktor ismi yanlış</string>
+    <string name="wrong_birgth_date">Doğum tarihi yanlış</string>
+    <string name="warn_date_picker">Tarih belirlemeniz gereklidir</string>
+    <string name="wrong_date_picker">Gelecek tarih belirlenemez</string>
+    <string name="error_check_box">
+        Onaylamanız gerekli
+    </string>
+
+    <string name="timer_formatted_time">%02d:%02d</string>
+
+    <string name="share_app_chooser">Mail göndermek için mail tabanlı app seçmeniz gereklidir</string>
+    <string name="share_app_text">ADA Android kullanıcı</string>
+    <string name="error_chooser">Mail gönderilmesi için mail app bulunamadı</string>
+
+    <string name="permission_warn">
+        İzin verilmedi. Uygulama bu fonksiyonu çalıştıramaz
+    </string>
+    <string name="permission_dialog_info">
+        Uygulamanın bu fonksiyonunu kullanabilmek için izinleri vermeniz gereklidir
+    </string>
+
+    <string name="video_status_success">Video Geçerli</string>
+    <string name="video_status_error">Video Geçersiz</string>
+    <string name="video_status_progressing">Değerlendiriliyor</string>
+    <string name="notification_video_post_loading">Video yükleniyor...</string>
+    <string name="notification_video_post_success">Video yüklendi</string>
+</resources>

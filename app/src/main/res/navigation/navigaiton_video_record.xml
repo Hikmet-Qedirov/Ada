@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigaiton_video_record"
+    app:startDestination="@id/videoBottomSheetFragment">
+
+    <fragment
+        android:id="@+id/videoBottomSheetFragment"
+        android:name="com.solidict.ada.ui.fragments.main.video_bottom_sheet_fragment.VideoBottomSheetFragment"
+        tools:layout="@layout/fragment_video_bottom_sheet"
+        android:label="fragment_video_bottom_sheet">
+        <action
+            android:id="@+id/action_videoBottomSheetFragment_to_videoCompletedFragment"
+            app:destination="@id/videoCompletedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoCompletedFragment"
+        android:name="com.solidict.ada.ui.fragments.main.video_completed_fragment.VideoCompletedFragment"
+        android:label="fragment_video_record"
+        tools:layout="@layout/fragment_video_record" >
+        <action
+            android:id="@+id/action_videoCompletedFragment_to_videoStatusFragment"
+            app:destination="@id/videoStatusFragment"
+            app:popUpTo="@id/videoBottomSheetFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoStatusFragment"
+        android:name="com.solidict.ada.ui.fragments.main.video_status_fragment.VideoStatusFragment"
+        android:label="fragment_video_status"
+        tools:layout="@layout/fragment_video_status" />
+</navigation>
