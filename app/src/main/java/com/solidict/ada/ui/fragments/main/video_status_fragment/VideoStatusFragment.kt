@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideoStatusBinding
 
 class VideoStatusFragment : Fragment() {
@@ -29,7 +28,7 @@ class VideoStatusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.videoStatusOkButton.setOnClickListener {
-//            findNavController().navigate(VideoStatusFragmentDirections.actionVideoStatusFragmentToNavigationMain())
+            findNavController().navigateUp()
         }
     }
 

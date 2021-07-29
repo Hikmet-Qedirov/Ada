@@ -6,7 +6,7 @@ import com.solidict.ada.repositories.MainRepository
 import com.solidict.ada.repositories.VideoRepository
 import com.solidict.ada.source.remote.AdaServiceApi
 import com.solidict.ada.util.ConnectionLiveData
-import com.solidict.ada.util.TokenPreferences
+import com.solidict.ada.util.SaveDataPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +25,7 @@ object MainAppModule {
 
     @Singleton
     @Provides
-    fun provideTokenPreferences(@ApplicationContext context: Context) = TokenPreferences(context)
+    fun provideTokenPreferences(@ApplicationContext context: Context) = SaveDataPreferences(context)
 
     @Singleton
     @Provides

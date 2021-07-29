@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Environment
 import android.util.Patterns
 import android.view.View
 import android.view.Window
@@ -18,6 +19,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.solidict.ada.R
 import com.solidict.ada.util.Constants.Companion.CONTACT_US_MAIL
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -130,4 +132,12 @@ fun String.getCurrentDateFormat(): String {
     val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
     return formatter.format(parser.parse(this)!!)
+}
+
+fun getVideoFile(context : Context): File {
+    val fileName = "${UUID.randomUUID()}"
+    val storageDirectory = context.getExternalFilesDir(
+        Environment.DIRECTORY_MOVIES
+    )
+    return File.createTempFile(fileName, ".mp4", storageDirectory)
 }

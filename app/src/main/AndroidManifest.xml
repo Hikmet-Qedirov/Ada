@@ -21,16 +21,18 @@
         android:name=".AdaApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ada">
+        android:theme="@style/Theme.Ada"
+        android:usesCleartextTraffic="true">
         <service
             android:name=".services.VideoService"
-            android:foregroundServiceType="dataSync" />
+            android:foregroundServiceType="dataSync"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.solidict.ada.provider"

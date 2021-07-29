@@ -1,7 +1,7 @@
 package com.solidict.ada.di
 
 import com.solidict.ada.repositories.VideoRepository
-import com.solidict.ada.util.TokenPreferences
+import com.solidict.ada.util.SaveDataPreferences
 import com.solidict.ada.viewmodel.VideoViewModel
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ class ServiceAppModule {
     @Provides
     fun provideVideoViewModel(
         videoRepository: VideoRepository,
-        tokenPreferences: TokenPreferences,
-    ) = VideoViewModel(videoRepository, tokenPreferences)
+        saveDataPreferences: SaveDataPreferences,
+    ) = VideoViewModel(videoRepository, saveDataPreferences)
 
 }

@@ -9,7 +9,7 @@ import com.solidict.ada.model.user.UserResponse
 import com.solidict.ada.model.video.VideoReportResponse
 import com.solidict.ada.model.video.VideoResponse
 import com.solidict.ada.repositories.MainRepository
-import com.solidict.ada.util.TokenPreferences
+import com.solidict.ada.util.SaveDataPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Response
 import javax.inject.Inject
@@ -21,11 +21,11 @@ class MainViewModel
 @Inject
 constructor(
     private val mainRepository: MainRepository,
-    private val tokenPreferences: TokenPreferences,
+    private val saveDataPreferences: SaveDataPreferences,
 ) : ViewModel() {
 
     val userData: LiveData<Response<UserResponse>> = liveData {
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "getUserData token :: $token")
         val response = mainRepository.getUserData(token)
         Log.d(TAG,
@@ -45,7 +45,7 @@ constructor(
     }
 
     val videoDemandReportPost: LiveData<Response<VideoReportResponse>> = liveData {
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "videoDemandReportPost token :: $token")
         val response = mainRepository.videoDemandReportPost(token)
         Log.d(TAG,
@@ -65,7 +65,7 @@ constructor(
     }
 
     val videoCanCreateGet: LiveData<Response<IsReportable>> = liveData {
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "videoCanCreateGet token :: $token")
         val response = mainRepository.videoCanCreateGet(token)
         Log.d(TAG,
@@ -85,7 +85,7 @@ constructor(
     }
 
     val videoListGet: LiveData<Response<VideoResponse>> = liveData {
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "videoListGet token :: $token")
         val response = mainRepository.videoListGet(token)
         Log.d(TAG,

@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,8 +23,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideoRecordBinding
-import com.solidict.ada.services.VideoService
 import com.solidict.ada.util.changeStatusBarColor
+import com.solidict.ada.util.getVideoFile
 import com.solidict.ada.util.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -33,7 +32,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.IOException
-import java.util.*
 
 
 private const val TAG = "TestVideoCompletedFragment"
@@ -82,7 +80,6 @@ class VideoCompletedFragment : Fragment() {
 
                     //upload service run and change navigation
                     findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
-                    VideoService.startCommand(requireContext())
                 } else {
                     Snackbar.make(
                         binding.root,
@@ -99,9 +96,7 @@ class VideoCompletedFragment : Fragment() {
             }
         }
         binding.videoRecordRecordVideoButton.setOnClickListener {
-//            intentLaunchFunction()
-
-            VideoService.stopCommand(requireContext())
+            intentLaunchFunction()
         }
     }
 
@@ -116,7 +111,9 @@ class VideoCompletedFragment : Fragment() {
         noBtn.text = getString(R.string.go_back)
         yesBtn.setOnClickListener {
             messageDialog.dismiss()
-            intentLaunchFunction()
+//            intentLaunchFunction()
+            // TODO: 7/30/2021 Yoxlama ucun funksiya deyiwdim
+            findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
         }
         noBtn.setOnClickListener {
             messageDialog.dismiss()
@@ -144,7 +141,7 @@ class VideoCompletedFragment : Fragment() {
         }
 
     private fun intentLaunchFunction() {
-        videoFile = getVideoFile()
+        videoFile = getVideoFile(requireContext())
         val fileProvider = FileProvider.getUriForFile(
             requireContext(),
             "com.solidict.ada.provider", videoFile
@@ -180,13 +177,6 @@ class VideoCompletedFragment : Fragment() {
         Log.d(TAG, "videoPart make part is $videoPart")
     }
 
-    private fun getVideoFile(): File {
-        val fileName = "${UUID.randomUUID()}"
-        val storageDirectory = requireContext().getExternalFilesDir(
-            Environment.DIRECTORY_MOVIES
-        )
-        return File.createTempFile(fileName, ".mp4", storageDirectory)
-    }
 
     private fun showVideoPreview(uri: Uri) {
         binding.imageViewVideo.setVideoURI(uri)
@@ -195,6 +185,7 @@ class VideoCompletedFragment : Fragment() {
         mediaController.setAnchorView(binding.imageViewVideo)
     }
 
+    // TODO: 7/29/2021 video record size change
     companion object {
         //        private const val CAMERA_RECORD_TIME_LIMIT = 3 * 60
         private const val CAMERA_RECORD_TIME_LIMIT = 2

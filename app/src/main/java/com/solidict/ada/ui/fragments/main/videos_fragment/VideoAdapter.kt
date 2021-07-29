@@ -19,6 +19,15 @@ class VideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(video: Video) {
             binding.videoRecyclerViewWeek.text = video.title
             binding.videoRecyclerViewDate.text = video.created.getCurrentDateFormat()
+            binding.videoRecyclerViewRetryButton.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    onItemClickListener?.let {
+                        it(video)
+                    }
+                }
+            }
+
             when (
                 video.status
             ) {
@@ -34,12 +43,8 @@ class VideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         setTextColor(binding.root.context.getColor(R.color.purple_700))
                     }
                     with(binding.videoRecyclerViewRetryButton) {
-                        visibility = View.VISIBLE
-                        setOnClickListener {
-                            onItemClickListener?.let {
-                                it(video)
-                            }
-                        }
+                        // TODO: 7/30/2021 test ucun her birini visible edecem
+
                     }
                 }
                 else -> {
@@ -76,9 +81,11 @@ class VideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 inflater, parent, false
             )
         ) else {
-            FooterViewHolder(VideoRecyclerViewFooterBinding.inflate(
-                inflater, parent, false
-            ))
+            FooterViewHolder(
+                VideoRecyclerViewFooterBinding.inflate(
+                    inflater, parent, false
+                )
+            )
         }
     }
 

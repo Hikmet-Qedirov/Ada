@@ -17,10 +17,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideosBinding
 import com.solidict.ada.model.video.Video
+import com.solidict.ada.util.SaveDataPreferences
 import com.solidict.ada.util.hasInternetConnection
 import com.solidict.ada.util.showLoadingDialogConfig
 import com.solidict.ada.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class VideosFragment : Fragment() {
@@ -31,6 +37,9 @@ class VideosFragment : Fragment() {
     private lateinit var loadingDialog: Dialog
     private lateinit var messageDialog: Dialog
     private lateinit var videoAdapter: VideoAdapter
+
+    @Inject
+    lateinit var saveDataPreferences: SaveDataPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +69,10 @@ class VideosFragment : Fragment() {
         }
         videoAdapter.setOnItemClickListener { video ->
             val videoId = video.id
-            // TODO: 7/19/2021 burada tekrar cek buttonuna kliklenme funksiyalari olacaq
+            CoroutineScope(Dispatchers.Main).launch {
+                saveDataPreferences.saveVideoId(videoId.toString())
+                findNavController().navigate(VideosFragmentDirections.actionVideosFragmentToNavigaitonVideoRecord())
+            }
         }
         videoAdapter.setOnFooterItemClickListener {
             mainVideoRecordVideoButtonFunctions()

@@ -7,7 +7,7 @@ import com.solidict.ada.model.auth.AuthValidateResponse
 import com.solidict.ada.model.user.UserCheckResponse
 import com.solidict.ada.model.user.UserResponse
 import com.solidict.ada.repositories.AuthRepository
-import com.solidict.ada.util.TokenPreferences
+import com.solidict.ada.util.SaveDataPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -20,7 +20,7 @@ class AuthViewModel
 @Inject
 constructor(
     private val authRepository: AuthRepository,
-    private val tokenPreferences: TokenPreferences,
+    private val saveDataPreferences: SaveDataPreferences,
 ) : ViewModel() {
     private var _authResponse: MutableLiveData<Response<AuthResponse>> = MutableLiveData()
     val authResponse: LiveData<Response<AuthResponse>> get() = _authResponse
@@ -29,7 +29,7 @@ constructor(
     val authValidate: LiveData<Response<AuthValidateResponse>> get() = _authValidate
 
     val userCheck: LiveData<Response<UserCheckResponse>> = liveData {
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "tokenPreferences :: $token")
         val response = authRepository.userCheck(token)
         Log.d(TAG,
@@ -52,7 +52,7 @@ constructor(
     val userPost: LiveData<Response<UserResponse>> get() = _userPost
 
     val userExist: LiveData<Boolean> = liveData {
-        val token = tokenPreferences.readToken()
+        val token = saveDataPreferences.readToken()
         Log.d(TAG, "$token")
         if (token != null) {
             emit(true)
@@ -85,7 +85,7 @@ constructor(
         val response = authRepository.authValidate(userID, validationCode)
         if (response.isSuccessful) {
             val token = response.body()!!.token
-            tokenPreferences.saveToken(token)
+            saveDataPreferences.saveToken(token)
             userCheck
         }
         _authValidate.value = response
@@ -116,7 +116,7 @@ constructor(
         email: String,
     ) = viewModelScope.launch {
         _userPost.value = null
-        val token = tokenPreferences.readToken()!!
+        val token = saveDataPreferences.readToken()!!
         val response = authRepository.userPost(
             authToken = token,
             privacyContract = privacyContract,

@@ -3,6 +3,7 @@ package com.solidict.ada.services
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -75,20 +76,19 @@ class VideoService : Service() {
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_load_video)
             .setContentTitle(getString(R.string.app_name))
-            .setContentIntent(getMainActivityPendingIntent())
             .setContentText(getString(R.string.notification_video_post_loading))
             .setProgress(PROGRESS_MAX, PROGRESS_START, true)
         startForeground(NOTIFICATION_ID, notificationBuilder.build())
     }
 
-    private fun changeNotificationProgress(progressCurrent: Int) {
-        if (progressCurrent <= PROGRESS_MAX) {
-            NotificationManagerCompat.from(this).apply {
-                notificationBuilder.setProgress(PROGRESS_MAX, progressCurrent, false)
-                notify(NOTIFICATION_ID, notificationBuilder.build())
-            }
-        }
-    }
+//    private fun changeNotificationProgress(progressCurrent: Int) {
+//        if (progressCurrent <= PROGRESS_MAX) {
+//            NotificationManagerCompat.from(this).apply {
+//                notificationBuilder.setProgress(PROGRESS_MAX, progressCurrent, false)
+//                notify(NOTIFICATION_ID, notificationBuilder.build())
+//            }
+//        }
+//    }
 
     private fun completedTaskNotification() {
         NotificationManagerCompat.from(this).apply {
@@ -100,11 +100,11 @@ class VideoService : Service() {
         }
     }
 
-    private fun getMainActivityPendingIntent() = PendingIntent.getActivity(
-        this, 0,
-        Intent(this, MainActivity::class.java),
-        PendingIntent.FLAG_UPDATE_CURRENT
-    )
+//    private fun getMainActivityPendingIntent() = PendingIntent.getActivity(
+//        this, 0,
+//        Intent(this, MainActivity::class.java),
+//        PendingIntent.FLAG_UPDATE_CURRENT
+//    )
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "VIDEO_SERVICE_CHANNEL_ID"
