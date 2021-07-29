@@ -23,6 +23,8 @@ class VideoStatusFragment : Fragment() {
         return binding.root
     }
 
+    // TODO: 7/29/2021 Burada sehife sifirlanmalidi
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.videoStatusOkButton.setOnClickListener {
