@@ -45,8 +45,31 @@ class AuthNumberVerificationFragment : Fragment() {
         loadingDialog.showLoadingDialogConfig()
         connectionDialog.showInternetStateConnection()
         observeUserCheck()
+        observeAuth()
         verificationGoOnButtonConfiguration()
         resendCodeConfig()
+    }
+
+    private fun observeAuth() {
+        viewModel.authResponse.observe(viewLifecycleOwner) { authResponse ->
+            if (authResponse != null) {
+                if (authResponse.isSuccessful) {
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.success_submit_code_again),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        authResponse.message(),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+        }
     }
 
     private fun resendCodeConfig() {
@@ -59,25 +82,6 @@ class AuthNumberVerificationFragment : Fragment() {
     private fun observeAuthConfig() {
         if (hasInternetConnection(requireContext())) {
             viewModel.auth(args.number)
-            viewModel.authResponse.observe(viewLifecycleOwner) { authResponse ->
-                if (authResponse != null) {
-                    if (authResponse.isSuccessful) {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.success_submit_code_again),
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .show()
-                    } else {
-                        Snackbar.make(
-                            binding.root,
-                            authResponse.message(),
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                }
-            }
         } else {
             connectionDialog.show()
         }
