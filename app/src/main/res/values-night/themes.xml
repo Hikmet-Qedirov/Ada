@@ -14,8 +14,7 @@
         <item name="snackbarTextViewStyle">@style/MySnackBarTextStyle</item>
         <item name="snackbarButtonStyle">@style/MySnackBarButtonStyle</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
-        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
 
         <!--    Custom    -->
         <item name="buttonStyle">@style/CustomButton</item>
@@ -27,6 +26,7 @@
         <item name="android:textColor">@drawable/custom_button_text</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">@dimen/minButtonHeight</item>
         <item name="android:paddingTop">@dimen/marginSubContainer</item>
         <item name="android:paddingBottom">@dimen/marginSubContainer</item>
         <item name="android:paddingStart">@dimen/buttonPaddingSize</item>

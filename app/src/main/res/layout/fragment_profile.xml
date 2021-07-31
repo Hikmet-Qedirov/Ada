@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/name_surname"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileFirstLastName"
@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/expected_date_of_birth"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileExpectedBirthDate"
@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/actual_date_of_birth"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileActualBirthDate"
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/birth_weight"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileBirthWeight"
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/gender"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileGender"
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/referring_doctor_name"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileDoctorName"
@@ -222,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/marginSubContainer"
                         android:text="@string/email_address"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_800" />
 
                     <TextView
                         android:id="@+id/mainProfileEmailAddress"
@@ -247,6 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/marginContainer"
                     android:layout_weight="3"
+                    android:textColor="@color/grey_800"
                     android:text="@string/context_contact_us" />
 
                 <androidx.appcompat.widget.AppCompatButton

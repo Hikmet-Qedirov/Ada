@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/marginContainer"
     tools:context=".ui.fragments.auth.auth_welcome_fragment.AuthWelcomeFragment">
-
+<!--Todo burada screen size a gore layout duzelmelidi-->
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -23,7 +23,8 @@
             android:layout_height="@dimen/cartImageView"
             android:background="@color/white"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ada_image" />
+            android:src="@drawable/ada_image"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -96,7 +97,8 @@
                         android:maxLength="@integer/phone_number_max_length"
                         android:text="@string/number_code_country"
                         android:textAlignment="center"
-                        android:textColor="@color/grey_700" />
+                        android:textColor="@color/grey_700"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +120,8 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/grey"
                         android:inputType="phone"
-                        android:maxLength="@integer/phone_number_max_length" />
+                        android:maxLength="@integer/phone_number_max_length"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

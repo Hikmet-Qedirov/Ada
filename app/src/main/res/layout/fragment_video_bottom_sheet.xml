@@ -40,7 +40,7 @@
                     android:id="@+id/videoBottomSheetCloseButton"
                     android:layout_width="@dimen/buttonPaddingSize"
                     android:layout_height="@dimen/buttonPaddingSize"
-                    android:layout_marginEnd="@dimen/marginContainer"
+                    android:layout_marginEnd="@dimen/marginSubContainer"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/go_back"
                     android:src="@drawable/ic_close"

@@ -45,6 +45,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/minButtonHeight"
+                android:labelFor="@id/authLoginNameTextInputEditText"
                 app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
@@ -56,10 +58,12 @@
                     android:id="@+id/authLoginNameTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minButtonHeight"
                     android:backgroundTint="@color/grey"
-                    android:inputType="text"
                     android:imeOptions="actionDone"
-                    android:maxLength="@integer/phone_number_max_length" />
+                    android:inputType="text"
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -83,12 +87,14 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginExpectedDateOfBirthTextInputEditText"
                 app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
                 app:endIconDrawable="@drawable/ic_date"
                 app:endIconMode="custom"
+                android:minHeight="@dimen/minButtonHeight"
                 app:endIconTint="@color/purple_700"
                 app:errorEnabled="true">
 
@@ -98,8 +104,10 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/grey"
                     android:focusable="false"
+                    android:minHeight="@dimen/minButtonHeight"
                     android:inputType="number"
-                    android:maxLength="@integer/phone_number_max_length" />
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -123,12 +131,14 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginActualDateOfBirthTextInputEditText"
                 app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
                 app:endIconDrawable="@drawable/ic_date"
                 app:endIconMode="custom"
+                android:minHeight="@dimen/minButtonHeight"
                 app:endIconTint="@color/purple_700"
                 app:errorEnabled="true">
 
@@ -139,7 +149,9 @@
                     android:backgroundTint="@color/grey"
                     android:focusable="false"
                     android:inputType="number"
-                    android:maxLength="@integer/phone_number_max_length" />
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -184,16 +196,21 @@
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
                 app:endIconMode="clear_text"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                android:minHeight="@dimen/minButtonHeight"
+                android:labelFor="@id/authLoginBirthWeightTextInputEditText"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/authLoginBirthWeightTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/grey"
-                    android:inputType="number"
                     android:imeOptions="actionDone"
-                    android:maxLength="@integer/phone_number_max_length" />
+                    android:inputType="number"
+                    android:maxLength="@integer/phone_number_max_length"
+                    android:minHeight="@dimen/minButtonHeight"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -274,11 +291,13 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginReferringDoctorNameTextInputEditText"
                 app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
                 app:endIconMode="clear_text"
+                android:minHeight="@dimen/minButtonHeight"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -287,7 +306,9 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/grey"
                     android:inputType="text"
-                    android:maxLength="@integer/phone_number_max_length" />
+                    android:maxLength="@integer/phone_number_max_length"
+                    android:minHeight="@dimen/minButtonHeight"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -328,11 +349,13 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginRequiredEmailAddressTextInputEditText"
                 app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
                 app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
                 app:endIconMode="clear_text"
+                android:minHeight="@dimen/minButtonHeight"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -340,9 +363,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/grey"
-                    android:inputType="textEmailSubject"
                     android:imeOptions="actionDone"
-                    />
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:inputType="textEmailSubject" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

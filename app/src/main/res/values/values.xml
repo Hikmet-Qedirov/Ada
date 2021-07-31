@@ -6,7 +6,7 @@
     <dimen name="marginSubContainer">8dp</dimen>
     <dimen name="cartBorderRadius">8dp</dimen>
     <dimen name="buttonBorderRadius">24dp</dimen>
-    <dimen name="buttonPaddingSize">36dp</dimen>
+    <dimen name="buttonPaddingSize">48dp</dimen>
     <dimen name="pageIconSize">72dp</dimen>
     <dimen name="cartStroke">2dp</dimen>
     <dimen name="camera_overview_stroke">4dp</dimen>
@@ -20,6 +20,7 @@
     <dimen name="camera_button_bottom_margin">24dp</dimen>
     <dimen name="camera_button_radius_size">48dp</dimen>
     <dimen name="recyclerViewStatusIconSize">32dp</dimen>
+    <dimen name="minButtonHeight">48dp</dimen>
     <integer name="animationDuration">470</integer>
     <integer name="recyclerViewAnimationDuration">270</integer>
 
