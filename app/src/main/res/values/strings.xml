@@ -101,6 +101,7 @@
     <string name="video_status_success">Video Geçerli</string>
     <string name="video_status_error">Video Geçersiz</string>
     <string name="video_status_progressing">Değerlendiriliyor</string>
-    <string name="notification_video_post_loading">Video yükleniyor...</string>
+    <string name="notification_video_post_loading">Video yükleniyor</string>
+    <string name="notification_video_post_error">Video yüklenemedi</string>
     <string name="notification_video_post_success">Video yüklendi</string>
 </resources>

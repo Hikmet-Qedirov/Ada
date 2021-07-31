@@ -95,7 +95,8 @@ class AuthWelcomeFragment : Fragment() {
                 } else {
                     loadingDialog.dismiss()
                     binding.authGoOnButton.isEnabled = true
-                    errorDialog.showErrorMessageDialog(authResponse.message())
+                    errorDialog.showMessageDialog(authResponse.message())
+                    errorDialog.show()
                 }
             }
         }

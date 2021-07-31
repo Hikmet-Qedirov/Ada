@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class AuthNumberVerificationFragment : Fragment() {
-    private var _binding : FragmentAuthNumberVerificationBinding ?=null
+    private var _binding: FragmentAuthNumberVerificationBinding? = null
     private val binding get() = _binding!!
     private val args: AuthNumberVerificationFragmentArgs by navArgs()
     private val viewModel: AuthViewModel by viewModels()
@@ -32,7 +32,7 @@ class AuthNumberVerificationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentAuthNumberVerificationBinding.inflate(inflater,container,false)
+        _binding = FragmentAuthNumberVerificationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,6 +44,7 @@ class AuthNumberVerificationFragment : Fragment() {
         errorDialog = Dialog(requireContext())
         loadingDialog.showLoadingDialogConfig()
         connectionDialog.showInternetStateConnection()
+        observeUserCheck()
         verificationGoOnButtonConfiguration()
         resendCodeConfig()
     }
@@ -61,9 +62,19 @@ class AuthNumberVerificationFragment : Fragment() {
             viewModel.authResponse.observe(viewLifecycleOwner) { authResponse ->
                 if (authResponse != null) {
                     if (authResponse.isSuccessful) {
-                        errorDialog.showErrorMessageDialog(getString(R.string.success_submit_code_again))
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.success_submit_code_again),
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
                     } else {
-                        errorDialog.showErrorMessageDialog(authResponse.message())
+                        Snackbar.make(
+                            binding.root,
+                            authResponse.message(),
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
                     }
                 }
             }
@@ -97,22 +108,24 @@ class AuthNumberVerificationFragment : Fragment() {
             viewModel.authValidate.observe(viewLifecycleOwner) { authValidateResponse ->
                 if (authValidateResponse != null) {
                     if (authValidateResponse.isSuccessful) {
-                        observeUserCheck()
+                        viewModel.userCheck()
                     } else {
-                        Snackbar.make(binding.root,
-                            authValidateResponse.message(),
-                            Snackbar.LENGTH_LONG).show()
+                        loadingDialog.dismiss()
+                        binding.authNumberVerificationGoOnButton.isEnabled = true
+                        Snackbar.make(binding.root, getString(R.string.retry), Snackbar.LENGTH_LONG)
+                            .show()
                     }
                 }
             }
         } else {
+            binding.authNumberVerificationGoOnButton.isEnabled = true
             loadingDialog.dismiss()
             connectionDialog.show()
         }
     }
 
     private fun observeUserCheck() {
-        viewModel.userCheck.observe(viewLifecycleOwner) { userCheckResponse ->
+        viewModel.userCheck.observe(viewLifecycleOwner,{userCheckResponse->
             if (userCheckResponse != null) {
                 if (userCheckResponse.isSuccessful) {
                     loadingDialog.dismiss()
@@ -120,8 +133,7 @@ class AuthNumberVerificationFragment : Fragment() {
                     if (profileCompleted) {
                         findNavController().navigate(R.id.mainFragment)
                     } else {
-                        findNavController()
-                            .navigate(AuthNumberVerificationFragmentDirections.actionAuthNumberVerificationFragmentToAuthLoginFragment())
+                        findNavController().navigate(AuthNumberVerificationFragmentDirections.actionAuthNumberVerificationFragmentToAuthLoginFragment())
                     }
                     binding.authNumberVerificationGoOnButton.isEnabled = true
                 } else {
@@ -131,7 +143,7 @@ class AuthNumberVerificationFragment : Fragment() {
                     binding.authNumberVerificationGoOnButton.isEnabled = true
                 }
             }
-        }
+        })
     }
 
     private fun verificationResendConfiguration() {
@@ -140,9 +152,11 @@ class AuthNumberVerificationFragment : Fragment() {
         val timer = object : CountDownTimer(11000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.authNumberVerificationTimerTextView.text =
-                    getString(R.string.timer_formatted_time,
+                    getString(
+                        R.string.timer_formatted_time,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60)
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
+                    )
             }
 
             override fun onFinish() {

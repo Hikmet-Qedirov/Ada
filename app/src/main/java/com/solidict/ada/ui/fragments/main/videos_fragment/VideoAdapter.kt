@@ -19,6 +19,7 @@ class VideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(video: Video) {
             binding.videoRecyclerViewWeek.text = video.title
             binding.videoRecyclerViewDate.text = video.created.getCurrentDateFormat()
+            // TODO: 7/30/2021 testden sonra bu hisseni sil
             binding.videoRecyclerViewRetryButton.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {

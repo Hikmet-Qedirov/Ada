@@ -94,5 +94,4 @@ object MainAppModule {
     fun provideVideoRepository(
         adaServiceApi: AdaServiceApi,
     ) = VideoRepository(adaServiceApi)
-
 }

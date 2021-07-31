@@ -39,13 +39,19 @@ fun hasInternetConnection(context: Context): Boolean {
 }
 
 fun String.nameValidation(): Boolean {
-    return this.isNotEmpty() && Pattern
-        .compile("^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}\$").matcher(this).matches()
+    val regex = "^[0-9-]+$".toRegex()
+    return this.isNotEmpty()
+            && this.trim().length >= 2
+            && !this.emailValidation()
+            && !this.matches(regex)
 }
 
 fun String.phoneNumberValidation(context: Context): Boolean {
     val number = this.trim()
-    return number.isNotEmpty() && number.length == context.resources.getInteger(R.integer.phone_number_max_length)
+    val regex = "^[0-9-]+$".toRegex()
+    return number.isNotEmpty() && number.length == context.resources.getInteger(R.integer.phone_number_max_length) && this.matches(
+        regex
+    )
 }
 
 fun Int.birthWeightValidation(): Boolean {
@@ -90,7 +96,7 @@ fun Dialog.showInternetStateConnection() {
     }
 }
 
-fun Dialog.showErrorMessageDialog(text: String) {
+fun Dialog.showMessageDialog(text: String) {
     this.apply {
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -105,7 +111,6 @@ fun Dialog.showErrorMessageDialog(text: String) {
             dismiss()
         }
         content.text = text
-        show()
     }
 }
 
@@ -134,7 +139,7 @@ fun String.getCurrentDateFormat(): String {
     return formatter.format(parser.parse(this)!!)
 }
 
-fun getVideoFile(context : Context): File {
+fun getVideoFile(context: Context): File {
     val fileName = "${UUID.randomUUID()}"
     val storageDirectory = context.getExternalFilesDir(
         Environment.DIRECTORY_MOVIES

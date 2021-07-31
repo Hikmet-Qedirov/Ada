@@ -17,12 +17,13 @@ class SaveDataPreferences
 constructor(
     private val context: Context,
 ) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
+    private val Context.token: DataStore<Preferences> by preferencesDataStore(name = "token")
+    private val Context.videoPart: DataStore<Preferences> by preferencesDataStore(name = "videoPart")
     private val Context.videoId: DataStore<Preferences> by preferencesDataStore(name = "videoId")
 
     private val tokenCodeTag = stringPreferencesKey(TOKEN_CODE_TAG)
+    private val videoPartTag = stringPreferencesKey(VIDEO_PART_TAG)
     private val videoIdTag = stringPreferencesKey(VIDEO_ID_TAG)
-
 
     suspend fun saveVideoId(value: String) {
         context.videoId.edit { videoId ->
@@ -43,23 +44,42 @@ constructor(
         }
     }
 
+    suspend fun saveVideoPart(value: String) {
+        context.videoPart.edit { videoId ->
+            videoId[videoPartTag] = value
+        }
+        Log.d(TAG, "SaveDataPreferences saveVideoId:: ${context.videoPart.data.first()}")
+    }
+
+    suspend fun readVideoPart(): String? {
+        val preferences = context.videoPart.data.first()
+        Log.d(TAG, "SaveDataPreferences readToken :: ${preferences[videoPartTag]}")
+        return preferences[videoPartTag]
+    }
+
+    suspend fun clearVideoPart() {
+        context.videoPart.edit { videoPart ->
+            videoPart[videoPartTag]
+        }
+    }
+
     suspend fun saveToken(value: String) {
-        context.dataStore.edit { token ->
+        context.token.edit { token ->
             token[tokenCodeTag] = value
         }
-        Log.d(TAG, "SaveDataPreferences saveToken:: ${context.dataStore.data.first()}")
+        Log.d(TAG, "SaveDataPreferences saveToken:: ${context.token.data.first()}")
     }
 
     suspend fun readToken(): String? {
-        val preferences = context.dataStore.data.first()
+        val preferences = context.token.data.first()
         Log.d(TAG, "SaveDataPreferences readToken :: ${preferences[tokenCodeTag]}")
         return preferences[tokenCodeTag]
     }
 
-
     companion object {
         private const val TOKEN_CODE_TAG = "com.solidict.ada.TOKEN_CODE_TAG"
         private const val VIDEO_ID_TAG = "com.solidict.ada.VIDEO_ID_TAG"
+        private const val VIDEO_PART_TAG = "com.solidict.ada.VIDEO_PART_TAG"
     }
 
 }

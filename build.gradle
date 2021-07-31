@@ -6,6 +6,7 @@ buildscript {
         logging_interceptor="4.9.1"
         data_store = "1.0.0-rc02"
         lifecycle = "2.3.1"
+        work_manager = "2.5.0"
     }
 
     repositories {

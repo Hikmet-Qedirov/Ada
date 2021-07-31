@@ -9,6 +9,7 @@ import com.solidict.ada.model.user.UserResponse
 import com.solidict.ada.repositories.AuthRepository
 import com.solidict.ada.util.SaveDataPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -28,11 +29,15 @@ constructor(
     private var _authValidate: MutableLiveData<Response<AuthValidateResponse>> = MutableLiveData()
     val authValidate: LiveData<Response<AuthValidateResponse>> get() = _authValidate
 
-    val userCheck: LiveData<Response<UserCheckResponse>> = liveData {
+    private var _userCheck: MutableLiveData<Response<UserCheckResponse>> = MutableLiveData()
+    val userCheck: LiveData<Response<UserCheckResponse>> = _userCheck
+
+    fun userCheck() = viewModelScope.launch(Dispatchers.Main) {
         val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "tokenPreferences :: $token")
         val response = authRepository.userCheck(token)
-        Log.d(TAG,
+        Log.d(
+            TAG,
             """
                 fun userCheck response :::
                 $response
@@ -44,8 +49,10 @@ constructor(
                 ${response.message()}
                 fun userCheck body :::
                 ${response.body()}
-            """)
-        emit(response)
+            """
+        )
+        _userCheck.value = response
+        _userCheck.value = null
     }
 
     private var _userPost: MutableLiveData<Response<UserResponse>> = MutableLiveData()
@@ -65,7 +72,8 @@ constructor(
         _authResponse.value = null
         val response = authRepository.auth(number)
         _authResponse.value = response
-        Log.d(TAG,
+        Log.d(
+            TAG,
             """
                 fun auth response :::
                 $response
@@ -77,7 +85,8 @@ constructor(
                 ${response.message()}
                 fun auth body :::
                 ${response.body()}
-            """)
+            """
+        )
     }
 
     fun authValidate(userID: Int, validationCode: String) = viewModelScope.launch {
@@ -89,7 +98,8 @@ constructor(
             userCheck
         }
         _authValidate.value = response
-        Log.d(TAG,
+        Log.d(
+            TAG,
             """
                 fun authValidate response :::
                 $response
@@ -101,7 +111,8 @@ constructor(
                 ${response.message()}
                 fun authValidate body :::
                 ${response.body()}
-            """)
+            """
+        )
     }
 
     fun userPost(
@@ -130,7 +141,8 @@ constructor(
             email = email,
         )
         _userPost.value = response
-        Log.d(TAG,
+        Log.d(
+            TAG,
             """
                 fun userPost response :::
                 $response
@@ -142,7 +154,8 @@ constructor(
                 ${response.message()}
                 fun userPost body :::
                 ${response.body()}
-            """)
+            """
+        )
     }
 
 

@@ -28,58 +28,12 @@ constructor(
     private var _videoVideoIdPost: MutableLiveData<Response<Video>> = MutableLiveData()
     val videoVideoIdPost: LiveData<Response<Video>> = _videoVideoIdPost
 
-    suspend fun videoPost(
-        filePart: MultipartBody.Part,
-    ) {
-        _videoPost.value = null
-        val token = saveDataPreferences.readToken()!!
-        Log.d(TAG, "videoPost token :: $token")
-        val response = videoRepository.videoPost(
-            authToken = token,
-            filePart = filePart)
-        Log.d(TAG,
-            """
-                fun videoPost response :::
-                $response
-                fun videoPost headers :::
-                ${response.headers()}
-                fun videoPost code :::
-                ${response.code()}
-                fun videoPost message :::
-                ${response.message()}
-                fun videoPost body :::
-                ${response.body()}
-            """)
-        _videoPost.value = response
-
-    }
-
-    suspend fun videoPostWithVideoId(
-        videoId: Int,
-        filePart: MultipartBody.Part,
-    ) {
-        _videoVideoIdPost.value = null
-        val token = saveDataPreferences.readToken()!!
-        Log.d(TAG, "videoPostWithVideoId token :: $token")
-        val response = videoRepository.videoPostWithVideoId(
-            authToken = token,
-            videoId = videoId,
-            filePart = filePart,
-        )
-        _videoVideoIdPost.value = response
-        Log.d(TAG,
-            """
-                fun videoPostWithVideoId response :::
-                $response
-                fun videoPostWithVideoId headers :::
-                ${response.headers()}
-                fun videoPostWithVideoId code :::
-                ${response.code()}
-                fun videoPostWithVideoId message :::
-                ${response.message()}
-                fun videoPostWithVideoId body :::
-                ${response.body()}
-            """)
-    }
+//    suspend fun videoPost(
+//        filePart: MultipartBody.Part,
+//    ) {
+//
+//        _videoPost.value = response
+//
+//    }
 
 }

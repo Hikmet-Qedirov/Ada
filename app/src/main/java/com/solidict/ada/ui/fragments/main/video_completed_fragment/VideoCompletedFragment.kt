@@ -19,20 +19,20 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideoRecordBinding
+import com.solidict.ada.util.SaveDataPreferences
 import com.solidict.ada.util.changeStatusBarColor
 import com.solidict.ada.util.getVideoFile
 import com.solidict.ada.util.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
-
+import javax.inject.Inject
 
 private const val TAG = "TestVideoCompletedFragment"
 private lateinit var videoFile: File
@@ -42,8 +42,12 @@ class VideoCompletedFragment : Fragment() {
 
     private var _binding: FragmentVideoRecordBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var messageDialog: Dialog
-    private var videoPart: MultipartBody.Part? = null
+    private var videoPart: Uri? = null
+
+    @Inject
+    lateinit var saveDataPreferences: SaveDataPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,15 +74,16 @@ class VideoCompletedFragment : Fragment() {
 
     private fun buttonsConfig() {
         binding.videoRecordGoOnButton.setOnClickListener {
-            val part = videoPart!!
+            val part = videoPart!!.toString()
             Log.d(TAG, "button config is $part")
 
             try {
                 if (hasInternetConnection(requireContext())) {
-//                    binding.videoRecordRecordVideoButton.isEnabled = false
-//                    binding.videoRecordGoOnButton.isEnabled = false
-
-                    //upload service run and change navigation
+                    binding.videoRecordRecordVideoButton.isEnabled = false
+                    binding.videoRecordGoOnButton.isEnabled = false
+                    viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                        saveDataPreferences.saveVideoPart(part)
+                    }
                     findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
                 } else {
                     Snackbar.make(
@@ -132,7 +137,9 @@ class VideoCompletedFragment : Fragment() {
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result?.data?.let { resultIntent ->
-                    makeMultiPartBodyFile(resultIntent)
+                    val uri = resultIntent.data!!
+                    showVideoPreview(uri)
+                    videoPart = uri
                 }
             } else {
                 changeMessageDialogContent(getString(R.string.error_video_record))
@@ -155,28 +162,6 @@ class VideoCompletedFragment : Fragment() {
         }
         recordVideo.launch(intent)
     }
-
-    private fun makeMultiPartBodyFile(data: Intent) {
-        val uri = data.data!!
-        Log.d(TAG, "makeMultiPartBodyFile uri :: $uri ")
-        Log.d(TAG, "makeMultiPartBodyFile uri :: ${uri.path} ")
-        showVideoPreview(uri)
-        val path = videoFile.path
-
-        val file = File(path)
-        Log.w(TAG, "file is ::::::::::: a$file ")
-
-        val requestBody = file.asRequestBody("video/mp4".toMediaTypeOrNull())
-
-        val part = MultipartBody.Part.createFormData(
-            "file",
-            file.name,
-            requestBody
-        )
-        videoPart = part
-        Log.d(TAG, "videoPart make part is $videoPart")
-    }
-
 
     private fun showVideoPreview(uri: Uri) {
         binding.imageViewVideo.setVideoURI(uri)
