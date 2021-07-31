@@ -18,6 +18,7 @@ import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideosBinding
 import com.solidict.ada.model.video.Video
 import com.solidict.ada.util.SaveDataPreferences
+import com.solidict.ada.util.changeStatusBarColor
 import com.solidict.ada.util.hasInternetConnection
 import com.solidict.ada.util.showLoadingDialogConfig
 import com.solidict.ada.viewmodel.MainViewModel
@@ -59,6 +60,11 @@ class VideosFragment : Fragment() {
         mainVideosRecordVideoButton()
         recyclerViewConfig()
         videoListConfig()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.changeStatusBarColor(R.color.grey)
     }
 
     private fun recyclerViewConfig() {
@@ -205,4 +211,5 @@ class VideosFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

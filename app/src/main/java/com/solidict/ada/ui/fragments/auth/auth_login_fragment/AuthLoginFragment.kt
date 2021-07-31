@@ -43,8 +43,8 @@ class AuthLoginFragment : Fragment() {
     private lateinit var connectionDialog: Dialog
     private lateinit var errorDialog: Dialog
     private lateinit var warnDialog: Dialog
-    private lateinit var expectedDatePicker : MaterialDatePicker<Long>
-    private lateinit var actualDatePicker : MaterialDatePicker<Long>
+    private lateinit var expectedDatePicker: MaterialDatePicker<Long>
+    private lateinit var actualDatePicker: MaterialDatePicker<Long>
 
     private var childFirstLastName = ""
     private var childExpectedDate = ""
@@ -94,7 +94,7 @@ class AuthLoginFragment : Fragment() {
     }
 
     private fun expectedDatePickerConfig() {
-         expectedDatePicker = MaterialDatePicker.Builder.datePicker()
+        expectedDatePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.expected_date_of_birth))
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
@@ -105,9 +105,11 @@ class AuthLoginFragment : Fragment() {
             binding.authLoginExpectedDateOfBirthTextInputLayout.hint = childExpectedDate
         }
         expectedDatePicker.addOnNegativeButtonClickListener {
-            Snackbar.make(binding.root,
+            Snackbar.make(
+                binding.root,
                 getString(R.string.warn_date_picker),
-                Snackbar.LENGTH_LONG)
+                Snackbar.LENGTH_LONG
+            )
                 .show()
         }
     }
@@ -127,9 +129,11 @@ class AuthLoginFragment : Fragment() {
             .build()
         actualDatePicker.addOnPositiveButtonClickListener {
             if (it > MaterialDatePicker.todayInUtcMilliseconds()) {
-                Snackbar.make(binding.root,
+                Snackbar.make(
+                    binding.root,
                     getString(R.string.wrong_date_picker),
-                    Snackbar.LENGTH_LONG)
+                    Snackbar.LENGTH_LONG
+                )
                     .show()
             } else {
                 val selectedDate =
@@ -139,13 +143,16 @@ class AuthLoginFragment : Fragment() {
             }
         }
         actualDatePicker.addOnNegativeButtonClickListener {
-            Snackbar.make(binding.root,
+            Snackbar.make(
+                binding.root,
                 getString(R.string.warn_date_picker),
-                Snackbar.LENGTH_LONG)
+                Snackbar.LENGTH_LONG
+            )
                 .show()
         }
     }
-    private fun actualDatePickerConfigTextInputEditText(){
+
+    private fun actualDatePickerConfigTextInputEditText() {
         binding.authLoginActualDateOfBirthTextInputEditText.setOnClickListener {
             binding.authLoginActualDateOfBirthTextInputLayout.error = null
             binding.authLoginGoOnButton.isEnabled = true
@@ -345,7 +352,8 @@ class AuthLoginFragment : Fragment() {
                         childGrams = childBirthWeight,
                         childName = childFirstLastName,
                         childRealBirthDate = childActualDate,
-                        email = childEmailAddress)
+                        email = childEmailAddress
+                    )
                     observeUserPost(warnDialog)
                 } else {
                     connectionDialog.show()
@@ -374,7 +382,9 @@ class AuthLoginFragment : Fragment() {
             if (userResponse !== null) {
                 if (userResponse.isSuccessful) {
                     Log.d(TAG, "user Response isSuccessful")
-                    findNavController().navigate(R.id.mainFragment)
+                    findNavController().navigate(
+                        AuthLoginFragmentDirections.actionAuthLoginFragmentToMainFragment2()
+                    )
                     dialogWarn.dismiss()
                     loadingDialog.dismiss()
                     binding.authLoginGoOnButton.isEnabled = true

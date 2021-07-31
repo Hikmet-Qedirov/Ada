@@ -71,21 +71,42 @@ class AuthNumberVerificationFragment : Fragment() {
             }
         }
     }
+    private fun observeAuthValidateConfig(code: String) {
+        loadingDialog.show()
+        if (hasInternetConnection(requireContext())) {
+            viewModel.authValidate(args.authResponse.id, code)
+            observeAuthValidate()
+        } else {
+            binding.authNumberVerificationGoOnButton.isEnabled = true
+            loadingDialog.dismiss()
+            connectionDialog.show()
+        }
+    }
+
+    private fun observeAuthValidate() {
+        viewModel.authValidate.observe(viewLifecycleOwner) { authValidateResponse ->
+            if (authValidateResponse != null) {
+                if (authValidateResponse.isSuccessful) {
+                    viewModel.userCheck()
+                } else {
+                    loadingDialog.dismiss()
+                    binding.authNumberVerificationGoOnButton.isEnabled = true
+                    Snackbar.make(binding.root, getString(R.string.retry), Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
 
     private fun resendCodeConfig() {
         binding.authNumberVerificationResendTextView.setOnClickListener {
             verificationResendConfiguration()
-            observeAuthConfig()
+            if (hasInternetConnection(requireContext())) {
+                viewModel.auth(args.number)
+            } else {
+                connectionDialog.show()
+            }
         }
-    }
-
-    private fun observeAuthConfig() {
-        if (hasInternetConnection(requireContext())) {
-            viewModel.auth(args.number)
-        } else {
-            connectionDialog.show()
-        }
-
     }
 
     private fun verificationGoOnButtonConfiguration() {
@@ -105,29 +126,6 @@ class AuthNumberVerificationFragment : Fragment() {
         }
     }
 
-    private fun observeAuthValidateConfig(code: String) {
-        loadingDialog.show()
-        if (hasInternetConnection(requireContext())) {
-            viewModel.authValidate(args.authResponse.id, code)
-            viewModel.authValidate.observe(viewLifecycleOwner) { authValidateResponse ->
-                if (authValidateResponse != null) {
-                    if (authValidateResponse.isSuccessful) {
-                        viewModel.userCheck()
-                    } else {
-                        loadingDialog.dismiss()
-                        binding.authNumberVerificationGoOnButton.isEnabled = true
-                        Snackbar.make(binding.root, getString(R.string.retry), Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                }
-            }
-        } else {
-            binding.authNumberVerificationGoOnButton.isEnabled = true
-            loadingDialog.dismiss()
-            connectionDialog.show()
-        }
-    }
-
     private fun observeUserCheck() {
         viewModel.userCheck.observe(viewLifecycleOwner,{userCheckResponse->
             if (userCheckResponse != null) {
@@ -135,7 +133,7 @@ class AuthNumberVerificationFragment : Fragment() {
                     loadingDialog.dismiss()
                     val profileCompleted = userCheckResponse.body()!!.profileCompleted
                     if (profileCompleted) {
-                        findNavController().navigate(R.id.mainFragment)
+                        findNavController().navigate(AuthNumberVerificationFragmentDirections.actionAuthNumberVerificationFragmentToMainFragment2())
                     } else {
                         findNavController().navigate(AuthNumberVerificationFragmentDirections.actionAuthNumberVerificationFragmentToAuthLoginFragment())
                     }

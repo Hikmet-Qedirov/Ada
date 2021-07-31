@@ -16,12 +16,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentProfileBinding
 import com.solidict.ada.model.user.UserResponse
+import com.solidict.ada.util.*
 import com.solidict.ada.util.Constants.Companion.GENDER_BOY
 import com.solidict.ada.util.Constants.Companion.GENDER_GIRL
-import com.solidict.ada.util.contactUsChooserOpen
-import com.solidict.ada.util.hasInternetConnection
-import com.solidict.ada.util.nameValidation
-import com.solidict.ada.util.showLoadingDialogConfig
 import com.solidict.ada.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,6 +39,10 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.changeStatusBarColor(R.color.grey)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadingDialog = Dialog(requireContext())

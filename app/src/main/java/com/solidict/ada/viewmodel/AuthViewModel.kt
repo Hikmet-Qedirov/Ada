@@ -33,6 +33,7 @@ constructor(
     val userCheck: LiveData<Response<UserCheckResponse>> = _userCheck
 
     fun userCheck() = viewModelScope.launch(Dispatchers.Main) {
+        _userCheck.value = null
         val token = saveDataPreferences.readToken()!!
         Log.d(TAG, "tokenPreferences :: $token")
         val response = authRepository.userCheck(token)
@@ -52,7 +53,6 @@ constructor(
             """
         )
         _userCheck.value = response
-        _userCheck.value = null
     }
 
     private var _userPost: MutableLiveData<Response<UserResponse>> = MutableLiveData()

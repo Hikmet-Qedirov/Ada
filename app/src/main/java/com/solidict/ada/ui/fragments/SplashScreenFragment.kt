@@ -1,5 +1,6 @@
 package com.solidict.ada.ui.fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SplashScreenFragment"
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenFragment : Fragment() {
 
@@ -71,6 +73,7 @@ class SplashScreenFragment : Fragment() {
 
     private fun observeIsLogInOrNot() {
         Log.d(TAG, "observeIsLogInOrNot::::::::")
+        viewModel.userCheck()
         viewModel.userCheck.observe(viewLifecycleOwner) { userCheckResponse ->
             if (userCheckResponse != null) {
                 Log.d(TAG, "observeIsLogInOrNot is not null::::::::")
@@ -80,8 +83,9 @@ class SplashScreenFragment : Fragment() {
                     Log.d(TAG, "observeIsLogInOrNot userCompleted:: $userCompleted")
                     if (userCompleted) {
                         Log.d(TAG, ":: userCompleted :: true")
-                        findNavController().popBackStack(R.id.splashScreenFragment, true)
-                        findNavController().navigate(R.id.mainFragment)
+                        findNavController().navigate(
+                            SplashScreenFragmentDirections.actionSplashScreenFragmentToMainFragment2()
+                        )
                     } else {
                         Log.d(TAG, ":: userCompleted :: false")
                         findNavController().navigate(

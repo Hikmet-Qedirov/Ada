@@ -6,11 +6,12 @@
     app:startDestination="@id/navigation_auth">
 
     <include
-        app:graph="@navigation/navigation_auth" />
+        app:graph="@navigation/navigation_auth"/>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.solidict.ada.ui.fragments.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <include app:graph="@navigation/navigaiton_video_record" />
 
 </navigation>
