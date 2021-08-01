@@ -74,7 +74,8 @@
     </string>
     <string name="wrong_included_number">Numara yanlış</string>
     <string name="wrong_included_email">Email yanlış</string>
-    <string name="retry">Hata oluştu. Tekrar dene</string>
+    <string name="retry_error">Hata oluştu. Tekrar dene</string>
+    <string name="retry">Tekrar dene</string>
     <string name="wrong_name">İsim yanlış</string>
     <string name="wrong_weight">Doğum kilosu yanlış</string>
     <string name="wrong_doctor_name">Doktor ismi yanlış</string>

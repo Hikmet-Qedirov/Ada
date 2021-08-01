@@ -19,35 +19,38 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.solidict.ada.R
 import com.solidict.ada.databinding.FragmentVideoRecordBinding
+import com.solidict.ada.services.UploadService
+import com.solidict.ada.util.Constants.Companion.START_UPLOAD_SERVICE
 import com.solidict.ada.util.SaveDataPreferences
 import com.solidict.ada.util.changeStatusBarColor
 import com.solidict.ada.util.getVideoFile
 import com.solidict.ada.util.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "TestVideoCompletedFragment"
-private lateinit var videoFile: File
 
 @AndroidEntryPoint
 class VideoCompletedFragment : Fragment() {
 
     private var _binding: FragmentVideoRecordBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var messageDialog: Dialog
-    private var videoPart: Uri? = null
+    private lateinit var videoFile: File
 
     @Inject
     lateinit var saveDataPreferences: SaveDataPreferences
+
+    private lateinit var messageDialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,17 +77,24 @@ class VideoCompletedFragment : Fragment() {
 
     private fun buttonsConfig() {
         binding.videoRecordGoOnButton.setOnClickListener {
-            val part = videoPart!!.toString()
+            val part = videoFile.absolutePath
             Log.d(TAG, "button config is $part")
-
             try {
                 if (hasInternetConnection(requireContext())) {
                     binding.videoRecordRecordVideoButton.isEnabled = false
                     binding.videoRecordGoOnButton.isEnabled = false
-                    viewLifecycleOwner.lifecycle.coroutineScope.launch {
-                        saveDataPreferences.saveVideoPart(part)
+                    val job = Job()
+                    CoroutineScope(Dispatchers.Main + job).launch {
+                        saveDataPreferences.saveVideoUri(part)
+                        Intent(requireContext(), UploadService::class.java).also {
+                            it.action = START_UPLOAD_SERVICE
+                            requireContext().startService(it)
+                        }
+                        findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
+                        job.cancel()
                     }
-                    findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
+
+
                 } else {
                     Snackbar.make(
                         binding.root,
@@ -95,7 +105,7 @@ class VideoCompletedFragment : Fragment() {
             } catch (e: IOException) {
                 Snackbar.make(
                     binding.root,
-                    getString(R.string.retry),
+                    getString(R.string.retry_error),
                     Snackbar.LENGTH_LONG
                 ).show()
             }
@@ -116,9 +126,7 @@ class VideoCompletedFragment : Fragment() {
         noBtn.text = getString(R.string.go_back)
         yesBtn.setOnClickListener {
             messageDialog.dismiss()
-//            intentLaunchFunction()
-            // TODO: 7/30/2021 Yoxlama ucun funksiya deyiwdim
-            findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
+            intentLaunchFunction()
         }
         noBtn.setOnClickListener {
             messageDialog.dismiss()
@@ -139,7 +147,6 @@ class VideoCompletedFragment : Fragment() {
                 result?.data?.let { resultIntent ->
                     val uri = resultIntent.data!!
                     showVideoPreview(uri)
-                    videoPart = uri
                 }
             } else {
                 changeMessageDialogContent(getString(R.string.error_video_record))
@@ -149,6 +156,7 @@ class VideoCompletedFragment : Fragment() {
 
     private fun intentLaunchFunction() {
         videoFile = getVideoFile(requireContext())
+        Log.d(TAG, "video file is ::: $videoFile")
         val fileProvider = FileProvider.getUriForFile(
             requireContext(),
             "com.solidict.ada.provider", videoFile

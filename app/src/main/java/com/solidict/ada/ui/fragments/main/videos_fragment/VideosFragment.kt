@@ -25,8 +25,8 @@ import com.solidict.ada.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,6 +53,12 @@ class VideosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val job = Job()
+        CoroutineScope(Dispatchers.Main + job).launch {
+            saveDataPreferences.clearVideoId()
+            saveDataPreferences.clearVideoUri()
+            job.cancel()
+        }
         loadingDialog = Dialog(requireContext())
         loadingDialog.showLoadingDialogConfig()
         messageDialog = Dialog(requireContext())
@@ -75,9 +81,11 @@ class VideosFragment : Fragment() {
         }
         videoAdapter.setOnItemClickListener { video ->
             val videoId = video.id
-            CoroutineScope(Dispatchers.Main).launch {
+            val job = Job()
+            CoroutineScope(Dispatchers.Main + job).launch {
                 saveDataPreferences.saveVideoId(videoId.toString())
                 findNavController().navigate(VideosFragmentDirections.actionVideosFragmentToNavigaitonVideoRecord())
+                job.cancel()
             }
         }
         videoAdapter.setOnFooterItemClickListener {
@@ -203,7 +211,6 @@ class VideosFragment : Fragment() {
     }
 
     private fun bindDataToRecyclerViewList(videos: List<Video>) {
-
         videoAdapter.differ.submitList(videos)
     }
 

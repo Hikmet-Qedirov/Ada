@@ -17,8 +17,9 @@ class Constants {
         const val GENDER_BOY = "MALE"
         const val GENDER_GIRL = "FEMALE"
 
-        const val NOTIFICATION_CHANNEL_NAME = "ADA"
-        const val NOTIFICATION_CHANNEL_ID = "video_post_channel"
-        const val VIDEO_POST_NOTIFICATION_ID = 2
+        const val START_UPLOAD_SERVICE = "com.solidict.ada.services.START_UPLOAD"
+        const val STOP_UPLOAD_SERVICE = "com.solidict.ada.services.STOP_UPLOAD"
+        const val NOTIFICATION_CHANNEL_ID = "com.solidict.ada.services.ADA"
+        const val NOTIFICATION_CHANNEL_NAME = "NOTIFICATION_CHANNEL_NAME"
     }
 }

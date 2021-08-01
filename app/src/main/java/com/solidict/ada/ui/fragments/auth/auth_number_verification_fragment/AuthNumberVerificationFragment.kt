@@ -91,7 +91,7 @@ class AuthNumberVerificationFragment : Fragment() {
                 } else {
                     loadingDialog.dismiss()
                     binding.authNumberVerificationGoOnButton.isEnabled = true
-                    Snackbar.make(binding.root, getString(R.string.retry), Snackbar.LENGTH_LONG)
+                    Snackbar.make(binding.root, getString(R.string.retry_error), Snackbar.LENGTH_LONG)
                         .show()
                 }
             }

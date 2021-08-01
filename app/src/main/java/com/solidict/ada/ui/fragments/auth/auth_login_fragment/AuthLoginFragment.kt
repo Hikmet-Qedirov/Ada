@@ -364,7 +364,7 @@ class AuthLoginFragment : Fragment() {
 
                 Snackbar.make(
                     binding.root,
-                    getString(R.string.retry),
+                    getString(R.string.retry_error),
                     Snackbar.LENGTH_LONG
                 ).show()
                 warnDialog.dismiss()

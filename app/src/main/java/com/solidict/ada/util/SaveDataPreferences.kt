@@ -18,11 +18,11 @@ constructor(
     private val context: Context,
 ) {
     private val Context.token: DataStore<Preferences> by preferencesDataStore(name = "token")
-    private val Context.videoPart: DataStore<Preferences> by preferencesDataStore(name = "videoPart")
+    private val Context.videoPart: DataStore<Preferences> by preferencesDataStore(name = "videoUri")
     private val Context.videoId: DataStore<Preferences> by preferencesDataStore(name = "videoId")
 
     private val tokenCodeTag = stringPreferencesKey(TOKEN_CODE_TAG)
-    private val videoPartTag = stringPreferencesKey(VIDEO_PART_TAG)
+    private val videoPartTag = stringPreferencesKey(VIDEO_URI_TAG)
     private val videoIdTag = stringPreferencesKey(VIDEO_ID_TAG)
 
     suspend fun saveVideoId(value: String) {
@@ -44,22 +44,23 @@ constructor(
         }
     }
 
-    suspend fun saveVideoPart(value: String) {
+    suspend fun saveVideoUri(value: String) {
+        clearVideoUri()
         context.videoPart.edit { videoId ->
             videoId[videoPartTag] = value
         }
-        Log.d(TAG, "SaveDataPreferences saveVideoId:: ${context.videoPart.data.first()}")
+        Log.d(TAG, "SaveDataPreferences saveVideoUri:: ${context.videoPart.data.first()}")
     }
 
-    suspend fun readVideoPart(): String? {
+    suspend fun readVideoUri(): String? {
         val preferences = context.videoPart.data.first()
-        Log.d(TAG, "SaveDataPreferences readToken :: ${preferences[videoPartTag]}")
+        Log.d(TAG, "SaveDataPreferences saveVideoUri :: ${preferences[videoPartTag]}")
         return preferences[videoPartTag]
     }
 
-    suspend fun clearVideoPart() {
+    suspend fun clearVideoUri() {
         context.videoPart.edit { videoPart ->
-            videoPart[videoPartTag]
+            videoPart[videoPartTag] = ""
         }
     }
 
@@ -79,7 +80,7 @@ constructor(
     companion object {
         private const val TOKEN_CODE_TAG = "com.solidict.ada.TOKEN_CODE_TAG"
         private const val VIDEO_ID_TAG = "com.solidict.ada.VIDEO_ID_TAG"
-        private const val VIDEO_PART_TAG = "com.solidict.ada.VIDEO_PART_TAG"
+        private const val VIDEO_URI_TAG = "com.solidict.ada.VIDEO_URI_TAG"
     }
 
 }
