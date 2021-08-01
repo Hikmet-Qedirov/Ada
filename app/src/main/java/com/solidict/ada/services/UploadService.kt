@@ -123,6 +123,7 @@ class UploadService : LifecycleService() {
                     R.drawable.ic_success,
                     actionText, pendingIntent
                 )
+                setContentIntent(pendingIntent)
             } else {
                 addAction(
                     R.drawable.ic_time_custom,
