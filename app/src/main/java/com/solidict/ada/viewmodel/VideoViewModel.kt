@@ -36,10 +36,11 @@ constructor(
         val token = saveDataPreferences.readToken()!!
         val videoId = saveDataPreferences.readVideoId()
         val fileUri = saveDataPreferences.readVideoUri()!!
+        val filePart = makeMultiPartBodyPart(fileUri)
         Log.d(TAG, "videoPost token :: $token")
         Log.d(TAG, "videoPost videoId :: $videoId")
         Log.d(TAG, "videoPost videoId :: $fileUri")
-        val filePart = makeMultiPartBodyPart(fileUri)
+        Log.d(TAG, "videoPost filePart :: $filePart")
         if (videoId.isNullOrEmpty()) {
             val response = videoRepository.videoPost(
                 token,
@@ -92,6 +93,7 @@ constructor(
         val path = filePart.toUri().path!!
         Log.d(TAG, "makeMultiPartBodyPart path : $path")
         val file = File(path)
+        Log.d(TAG, "makeMultiPartBodyPart file : $file")
 
         return MultipartBody.Part.createFormData(
             "file",

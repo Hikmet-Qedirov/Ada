@@ -44,7 +44,7 @@
                 android:resource="@xml/file_path" />
         </provider>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="unspecified"

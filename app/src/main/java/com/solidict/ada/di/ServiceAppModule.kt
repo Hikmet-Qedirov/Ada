@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import com.solidict.ada.MainActivity
+import com.solidict.ada.ui.activities.MainActivity
 import com.solidict.ada.R
 import com.solidict.ada.repositories.VideoRepository
 import com.solidict.ada.util.Constants.Companion.NOTIFICATION_CHANNEL_ID

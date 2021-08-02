@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/marginContainer"
     tools:context=".ui.fragments.auth.auth_welcome_fragment.AuthWelcomeFragment">
-<!--Todo burada screen size a gore layout duzelmelidi-->
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/cartImageView"
             android:layout_height="@dimen/cartImageView"
             android:background="@color/white"
             android:contentDescription="@string/app_name"
@@ -52,7 +52,6 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
@@ -62,7 +61,6 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -174,26 +172,24 @@
             android:gravity="clip_horizontal"
             android:orientation="horizontal">
 
-            <Button
+            <TextView
                 android:id="@+id/authPrivacyAndPolicyButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/privacy_policy"
                 android:textColor="@color/grey_700"
-                android:textSize="@dimen/subButtonTextSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/authTermsOfUseButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/terms_of_use"
                 android:textColor="@color/grey_700"
-                android:textSize="@dimen/subButtonTextSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
