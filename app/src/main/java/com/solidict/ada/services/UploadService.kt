@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import com.solidict.ada.R
@@ -23,6 +21,7 @@ private const val TAG = "TestUploadService"
 @AndroidEntryPoint
 class UploadService : LifecycleService() {
     private var isFirstRun = true
+    private var isServiceKilled = false
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
@@ -35,12 +34,14 @@ class UploadService : LifecycleService() {
     override fun onCreate() {
         super.onCreate()
         currentNotificationBuilder = baseNotificationBuilder
-        viewModel.videoPost.observe(this) { videoResponse ->
-            if (videoResponse != null) {
-                if (videoResponse.isSuccessful) {
-                    updateNotificationState(true)
-                } else {
-                    updateNotificationState(false)
+        if (!isServiceKilled) {
+            viewModel.videoPost.observe(this) { videoResponse ->
+                if (videoResponse != null) {
+                    if (videoResponse.isSuccessful) {
+                        updateNotificationState(true)
+                    } else {
+                        updateNotificationState(false)
+                    }
                 }
             }
         }
@@ -61,18 +62,16 @@ class UploadService : LifecycleService() {
                 }
                 STOP_UPLOAD_SERVICE -> {
                     Log.d(TAG, "UploadService onStartCommand :: STOP_UPLOAD ")
-                    stopSelf()
+                    serviceKilled()
                 }
                 else -> {
                     Log.d(TAG, "UploadService onStartCommand :: else ")
-
                 }
             }
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         val channel = NotificationChannel(
             NOTIFICATION_CHANNEL_ID,
@@ -85,9 +84,7 @@ class UploadService : LifecycleService() {
     private fun startForegroundService() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(notificationManager)
-        }
+        createNotificationChannel(notificationManager)
         baseNotificationBuilder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, true)
         startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
     }
@@ -106,7 +103,7 @@ class UploadService : LifecycleService() {
             val errorIntent = Intent(this, UploadService::class.java).apply {
                 action = START_UPLOAD_SERVICE
             }
-            PendingIntent.getService(this, 1, errorIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, 2, errorIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         val notificationManager =
@@ -117,30 +114,39 @@ class UploadService : LifecycleService() {
             isAccessible = true
             set(currentNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
-        currentNotificationBuilder = baseNotificationBuilder.apply {
-            if (isDone) {
-                addAction(
-                    R.drawable.ic_success,
-                    actionText, pendingIntent
-                )
-                setContentIntent(pendingIntent)
-            } else {
-                addAction(
-                    R.drawable.ic_time_custom,
-                    actionText, pendingIntent
-                )
-            }
-            setOngoing(false)
-            setProgress(0, 0, false)
-            setContentText(contentText)
-        }
+        if (!isServiceKilled) {
 
-        notificationManager.notify(NOTIFICATION_ID, currentNotificationBuilder.build())
+            currentNotificationBuilder = baseNotificationBuilder.apply {
+                if (isDone) {
+                    addAction(
+                        R.drawable.ic_success,
+                        actionText, pendingIntent
+                    )
+                } else {
+                    addAction(
+                        R.drawable.ic_time_custom,
+                        actionText, pendingIntent
+                    )
+                }
+                setContentIntent(pendingIntent)
+                setProgress(0, 0, false)
+                setContentText(contentText)
+            }
+            notificationManager.notify(NOTIFICATION_ID, currentNotificationBuilder.build())
+        }
     }
 
     companion object {
-        private const val NOTIFICATION_ID = 777
+        private const val NOTIFICATION_ID = 123
         private const val PROGRESS_CURRENT = 0
         private const val PROGRESS_MAX = 100
+    }
+
+
+    private fun serviceKilled() {
+        isFirstRun = true
+        isServiceKilled = true
+        stopForeground(false)
+        stopSelf()
     }
 }
