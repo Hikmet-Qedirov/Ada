@@ -39,10 +39,6 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        activity?.changeStatusBarColor(R.color.grey)
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadingDialog = Dialog(requireContext())
@@ -52,6 +48,11 @@ class ProfileFragment : Fragment() {
         contactUsButton()
         reportButton()
         getUserData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.changeStatusBarColor(R.color.grey)
     }
 
     private fun getUserData() {

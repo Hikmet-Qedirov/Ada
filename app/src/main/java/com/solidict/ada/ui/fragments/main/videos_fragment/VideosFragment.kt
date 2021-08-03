@@ -50,7 +50,6 @@ class VideosFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val job = Job()
@@ -93,7 +92,6 @@ class VideosFragment : Fragment() {
         }
     }
 
-
     private fun videoListConfig() {
         if (hasInternetConnection(requireContext())) {
             loadingDialog.show()
@@ -112,14 +110,17 @@ class VideosFragment : Fragment() {
         viewModel.videoListGet.observe(viewLifecycleOwner) { videoResponse ->
             if (videoResponse != null) {
                 if (videoResponse.isSuccessful) {
-                    loadingDialog.dismiss()
                     val body = videoResponse.body()!!
                     val videos = body.videos
                     bindVideoListDataToView(videos)
+                    loadingDialog.dismiss()
                 } else {
                     loadingDialog.dismiss()
-                    Snackbar.make(binding.root, videoResponse.message(), Snackbar.LENGTH_LONG)
-                        .show()
+                    Snackbar.make(
+                        binding.root,
+                        videoResponse.message(),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             } else {
                 loadingDialog.dismiss()
