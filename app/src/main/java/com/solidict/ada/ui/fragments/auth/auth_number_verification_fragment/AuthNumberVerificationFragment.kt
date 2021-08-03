@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,7 @@ class AuthNumberVerificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        editTextConfiguration()
         goBackButtonConfiguration()
         loadingDialog = Dialog(requireContext())
         connectionDialog = Dialog(requireContext())
@@ -48,6 +50,12 @@ class AuthNumberVerificationFragment : Fragment() {
         observeAuth()
         verificationGoOnButtonConfiguration()
         resendCodeConfig()
+    }
+
+    private fun editTextConfiguration() {
+        binding.authNumberVerificationEditText.doOnTextChanged { text, _, _, _ ->
+            binding.authNumberVerificationGoOnButton.isEnabled = !text.isNullOrBlank()
+        }
     }
 
     private fun observeAuth() {

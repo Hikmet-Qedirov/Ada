@@ -48,8 +48,9 @@ class AuthWelcomeFragment : Fragment() {
     }
 
     private fun authEditTextConfiguration() {
-        binding.authTextInputEditTextNumberPhone.doOnTextChanged { _, _, _, _ ->
+        binding.authTextInputEditTextNumberPhone.doOnTextChanged { text, _, _, _ ->
             binding.authTextInputLayoutNumberPhone.error = null
+            binding.authGoOnButton.isEnabled = !text.isNullOrBlank()
         }
     }
 
