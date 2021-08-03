@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authLoginScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.fragments.auth.auth_login_fragment.AuthLoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/marginContainer"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/marginContainer"
+        android:paddingBottom="@dimen/marginContainer">
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:layout_marginBottom="@dimen/marginContainer"
+            android:text="@string/please_enter_your_childs_information"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <!-- Isim Soyisim -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_surname"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginNameTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minButtonHeight"
+                android:labelFor="@id/authLoginNameTextInputEditText"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginNameTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:backgroundTint="@color/grey"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Beklenen Dogum Tarihi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expected_date_of_birth"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginExpectedDateOfBirthTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginExpectedDateOfBirthTextInputEditText"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconDrawable="@drawable/ic_date"
+                app:endIconMode="custom"
+                android:minHeight="@dimen/minButtonHeight"
+                app:endIconTint="@color/purple_700"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginExpectedDateOfBirthTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:focusable="false"
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:inputType="number"
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Gercek Dogum Tarihi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actual_date_of_birth"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginActualDateOfBirthTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginActualDateOfBirthTextInputEditText"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconDrawable="@drawable/ic_date"
+                app:endIconMode="custom"
+                android:minHeight="@dimen/minButtonHeight"
+                app:endIconTint="@color/purple_700"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginActualDateOfBirthTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:focusable="false"
+                    android:inputType="number"
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:maxLength="@integer/phone_number_max_length"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Dogum Kilosu -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/birth_weight"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/enter_bird_weight_like_gram"
+                    android:textAlignment="textEnd"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginBirthWeightTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                android:minHeight="@dimen/minButtonHeight"
+                android:labelFor="@id/authLoginBirthWeightTextInputEditText"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginBirthWeightTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="@integer/phone_number_max_length"
+                    android:minHeight="@dimen/minButtonHeight"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Cinsiyet -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/authLoginGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/authLoginGenderGirl"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/authLoginGenderGirl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:drawableStart="@drawable/custom_radio_button"
+                    android:text="@string/girl" />
+
+                <RadioButton
+                    android:id="@+id/authLoginGenderBoy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/marginContainer"
+                    android:button="@null"
+                    android:drawableStart="@drawable/custom_radio_button"
+                    android:text="@string/boy" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <!-- Yonlendiren Doktor Ismi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/referring_doctor_name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginSubContainer"
+                    android:text="@string/optional"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginReferringDoctorNameTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginReferringDoctorNameTextInputEditText"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconMode="clear_text"
+                android:minHeight="@dimen/minButtonHeight"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginReferringDoctorNameTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:inputType="text"
+                    android:maxLength="@integer/phone_number_max_length"
+                    android:minHeight="@dimen/minButtonHeight"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Rapor gondermek icin gereklidir -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginContainer"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginSubContainer"
+                    android:text="@string/required_to_submit_the_report"
+                    android:textColor="@color/purple_700"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/authLoginRequiredEmailAddressTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/authLoginRequiredEmailAddressTextInputEditText"
+                app:boxCornerRadiusBottomEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusBottomStart="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopEnd="@dimen/buttonBorderRadius"
+                app:boxCornerRadiusTopStart="@dimen/buttonBorderRadius"
+                app:endIconMode="clear_text"
+                android:minHeight="@dimen/minButtonHeight"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/authLoginRequiredEmailAddressTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/grey"
+                    android:imeOptions="actionDone"
+                    android:minHeight="@dimen/minButtonHeight"
+                    android:inputType="textEmailSubject" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Check Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Gizlilik Politikası -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginContainer"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/authLoginPrivacyPolicyAndTermsOfUseCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/purple_500" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/authLoginPrivacyPolicyAndTermsOfUseButton"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/privacy_policy_and_terms_of_use"
+                        android:textColor="@color/blue" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/i_have_read_approve" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!-- Ucret Politikası -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/marginContainer"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/authLoginPayingCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/purple_500" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/I_will_not_be_able_to_get_a_report_without_paying_this_fee" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/authLoginGoOnButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/marginContainer"
+            android:text="@string/go_on" />
+
+    </LinearLayout>
+
+
+</ScrollView>

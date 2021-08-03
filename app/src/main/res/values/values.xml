@@ -24,5 +24,8 @@
     <integer name="animationDuration">470</integer>
     <integer name="recyclerViewAnimationDuration">270</integer>
 
+    <dimen name="cartImageView_hdpi">96dp</dimen>
+    <dimen name="editTextSize_hdpi">11sp</dimen>
+
 
 </resources>
