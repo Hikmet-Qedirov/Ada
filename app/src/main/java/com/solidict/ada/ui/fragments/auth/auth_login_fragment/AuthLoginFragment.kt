@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val TAG = "AuthLoginFragment"
+private const val TAG = "TestAuthLoginFragment"
 
 @AndroidEntryPoint
 class AuthLoginFragment : Fragment() {
@@ -74,6 +74,7 @@ class AuthLoginFragment : Fragment() {
         connectionDialog = Dialog(requireContext())
         loadingDialog.showLoadingDialogConfig()
         connectionDialog.showInternetStateConnection()
+        checkInputWarnConfig()
         firstLastNameConfig()
         expectedDatePickerTextInputEditText()
         actualDatePickerConfigTextInputEditText()
@@ -84,6 +85,59 @@ class AuthLoginFragment : Fragment() {
         checkBoxConfig()
         webViewConfig()
         goOnButtonConfiguration()
+        connectionDialog()
+        observeUserPost()
+    }
+
+    private fun connectionDialog() {
+        warnDialog.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCancelable(false)
+            setContentView(R.layout.fragment_dialog)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+        val content: TextView = warnDialog.findViewById(R.id.customAlertDialogText)
+        val yesBtn: Button = warnDialog.findViewById(R.id.customAlertDialogOkButton)
+        val noBtn: TextView = warnDialog.findViewById(R.id.customAlertDialogCancelButton)
+        content.text = getString(R.string.attention_notice)
+        yesBtn.text = getString(R.string.my_information_is_correct)
+        noBtn.text = getString(R.string.go_back)
+        yesBtn.setOnClickListener {
+            yesBtn.isEnabled = false
+            Log.d(TAG, "try userPost:: ")
+            try {
+                if (hasInternetConnection(requireContext())) {
+                    loadingDialog.show()
+                    viewModel.userPost(
+                        privacyContract = privacyTermsOfUseClicked,
+                        reportContract = payingThisFee,
+                        childDoctorName = childReferringDoctorName,
+                        childEstimatedBirthDate = childExpectedDate,
+                        childGender = childGender,
+                        childGrams = childBirthWeight,
+                        childName = childFirstLastName,
+                        childRealBirthDate = childActualDate,
+                        email = childEmailAddress
+                    )
+                } else {
+                    connectionDialog.show()
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "catch userPost:: ")
+                Log.d(TAG, "catch exception e::$e ")
+
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.retry_error),
+                    Snackbar.LENGTH_LONG
+                ).show()
+                warnDialog.dismiss()
+            }
+        }
+        noBtn.setOnClickListener {
+            warnDialog.dismiss()
+            binding.authLoginGoOnButton.isEnabled = true
+        }
     }
 
     private fun firstLastNameConfig() {
@@ -301,9 +355,9 @@ class AuthLoginFragment : Fragment() {
             && binding.authLoginPrivacyPolicyAndTermsOfUseCheckBox.error == null
             && binding.authLoginPayingCheckBox.error == null
         ) {
-            showDialog()
+            warnDialog.show()
         } else {
-            checkInputWarnConfig()
+            errorDialog.show()
         }
     }
 
@@ -321,63 +375,9 @@ class AuthLoginFragment : Fragment() {
         yesBtn.setOnClickListener {
             errorDialog.dismiss()
         }
-        errorDialog.show()
     }
 
-    private fun showDialog() {
-        warnDialog.apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setCancelable(false)
-            setContentView(R.layout.fragment_dialog)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
-        val content: TextView = warnDialog.findViewById(R.id.customAlertDialogText)
-        val yesBtn: Button = warnDialog.findViewById(R.id.customAlertDialogOkButton)
-        val noBtn: TextView = warnDialog.findViewById(R.id.customAlertDialogCancelButton)
-        content.text = getString(R.string.attention_notice)
-        yesBtn.text = getString(R.string.my_information_is_correct)
-        noBtn.text = getString(R.string.go_back)
-        yesBtn.setOnClickListener {
-            yesBtn.isEnabled = false
-            Log.d(TAG, "try userPost:: ")
-            try {
-                if (hasInternetConnection(requireContext())) {
-                    loadingDialog.show()
-                    viewModel.userPost(
-                        privacyContract = privacyTermsOfUseClicked,
-                        reportContract = payingThisFee,
-                        childDoctorName = childReferringDoctorName,
-                        childEstimatedBirthDate = childExpectedDate,
-                        childGender = childGender,
-                        childGrams = childBirthWeight,
-                        childName = childFirstLastName,
-                        childRealBirthDate = childActualDate,
-                        email = childEmailAddress
-                    )
-                    observeUserPost(warnDialog)
-                } else {
-                    connectionDialog.show()
-                }
-            } catch (e: Exception) {
-                Log.d(TAG, "catch userPost:: ")
-                Log.d(TAG, "catch exception e::$e ")
-
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.retry_error),
-                    Snackbar.LENGTH_LONG
-                ).show()
-                warnDialog.dismiss()
-            }
-        }
-        noBtn.setOnClickListener {
-            warnDialog.dismiss()
-            binding.authLoginGoOnButton.isEnabled = true
-        }
-        warnDialog.show()
-    }
-
-    private fun observeUserPost(dialogWarn: Dialog) {
+    private fun observeUserPost() {
         viewModel.userPost.observe(viewLifecycleOwner) { userResponse ->
             if (userResponse !== null) {
                 if (userResponse.isSuccessful) {
@@ -385,7 +385,7 @@ class AuthLoginFragment : Fragment() {
                     findNavController().navigate(
                         AuthLoginFragmentDirections.actionAuthLoginFragmentToMainFragment2()
                     )
-                    dialogWarn.dismiss()
+                    warnDialog.dismiss()
                     loadingDialog.dismiss()
                     binding.authLoginGoOnButton.isEnabled = true
                 } else {
@@ -396,7 +396,7 @@ class AuthLoginFragment : Fragment() {
                         userResponse.message(),
                         Snackbar.LENGTH_LONG
                     ).show()
-                    dialogWarn.dismiss()
+                    warnDialog.dismiss()
                     loadingDialog.dismiss()
                 }
             }

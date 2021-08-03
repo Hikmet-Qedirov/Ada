@@ -142,7 +142,6 @@ class UploadService : LifecycleService() {
         private const val PROGRESS_MAX = 100
     }
 
-
     private fun serviceKilled() {
         isFirstRun = true
         isServiceKilled = true
