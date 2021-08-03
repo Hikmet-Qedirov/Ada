@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:layout_margin="@dimen/marginContainer">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/marginContainer"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/customAlertDialogCancelButton"
@@ -61,7 +63,8 @@
             android:layout_width="@dimen/pageIconSize"
             android:layout_height="@dimen/pageIconSize"
             android:contentDescription="@string/attention_notice"
-            android:src="@drawable/ic_warn" />
+            android:src="@drawable/ic_warn"
+            tools:ignore="ImageContrastCheck" />
     </FrameLayout>
 
 
