@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.solidict.ada.databinding.FragmentWebViewBinding
 import com.solidict.ada.util.hasInternetConnection
 import com.solidict.ada.util.showInternetStateConnection
+import java.io.IOException
 
 class WebViewFragment : Fragment() {
 
@@ -38,12 +39,11 @@ class WebViewFragment : Fragment() {
         if (hasInternetConnection(requireContext())) {
             try {
                 configurationWebView(url)
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 connectionDialog.show()
                 findNavController().popBackStack()
             }
         } else {
-
             findNavController().popBackStack()
         }
     }

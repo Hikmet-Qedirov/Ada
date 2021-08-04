@@ -11,6 +11,7 @@ import com.solidict.ada.model.user.UserResponse
 import com.solidict.ada.model.video.Video
 import com.solidict.ada.model.video.VideoReportResponse
 import com.solidict.ada.model.video.VideoResponse
+import com.solidict.ada.util.Resource
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -40,7 +41,7 @@ interface AdaServiceApi {
     suspend fun videoPost(
         @Header("Authorization") auth: String,
         @Part file: MultipartBody.Part,
-        ): Response<Video>
+    ): Response<Video>
 
     @Multipart
     @POST(VIDEO_VIDEO_ID_POST)

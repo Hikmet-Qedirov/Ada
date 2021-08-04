@@ -8,14 +8,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solidict.ada.model.video.Video
 import com.solidict.ada.repositories.VideoRepository
+import com.solidict.ada.util.Resource
 import com.solidict.ada.util.SaveDataPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.ResponseBody
+import retrofit2.HttpException
 import retrofit2.Response
 import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "TestVideoViewModel"
@@ -28,8 +32,8 @@ constructor(
     private val saveDataPreferences: SaveDataPreferences,
 ) : ViewModel() {
     // video post
-    private var _videoPost: MutableLiveData<Response<Video>> = MutableLiveData()
-    val videoPost: LiveData<Response<Video>> get() = _videoPost
+    private var _videoPost: MutableLiveData<Resource<Video>> = MutableLiveData()
+    val videoPost: LiveData<Resource<Video>> get() = _videoPost
 
     fun videoPost() = viewModelScope.launch {
         _videoPost.value = null
@@ -41,53 +45,53 @@ constructor(
         Log.d(TAG, "videoPost videoId :: $videoId")
         Log.d(TAG, "videoPost videoId :: $fileUri")
         Log.d(TAG, "videoPost filePart :: $filePart")
-        if (videoId.isNullOrEmpty()) {
-            val response = videoRepository.videoPost(
-                token,
-                filePart
-            )
-            _videoPost.value = response
-            Log.d(
-                TAG,
-                """
+        try {
+            _videoPost.value = Resource.Loading()
+            if (videoId.isNullOrEmpty()) {
+                val response = videoRepository.videoPost(
+                    token,
+                    filePart
+                )
+                _videoPost.value = handleVideoResponse(response)
+                Log.d(
+                    TAG,
+                    """
                 fun videoPost response :::
-                $response
-                fun videoPost headers :::
-                ${response.headers()}
-                fun videoPost code :::
-                ${response.code()}
-                fun videoPost message :::
-                ${response.message()}
-                fun videoPost body :::
-                ${response.body()}
-            """
-            )
-        } else {
-            val response = videoRepository.videoPostWithVideoId(
-                token,
-                filePart,
-                videoId.toInt()
-            )
-            _videoPost.value = response
-            saveDataPreferences.clearVideoId()
-            saveDataPreferences.clearVideoUri()
-            Log.d(
-                TAG,
-                """
+                $response"""
+                )
+            } else {
+                val response = videoRepository.videoPostWithVideoId(
+                    token,
+                    filePart,
+                    videoId.toInt()
+                )
+                _videoPost.value = handleVideoResponse(response)
+                Log.d(
+                    TAG,
+                    """
                 fun videoPostWithId response :::
                 $response
-                fun videoPostWithId headers :::
-                ${response.headers()}
-                fun videoPostWithId code :::
-                ${response.code()}
-                fun videoPostWithId message :::
-                ${response.message()}
-                fun videoPostWithId body :::
-                ${response.body()}
-            """
-            )
+                """
+                )
+            }
+        } catch (e: IOException) {
+            Log.d(TAG, "videoPost IOException :: ${e.message}")
+            _videoPost.value = Resource.Error(e.message!!)
+        } catch (e: HttpException) {
+            Log.d(TAG, "videoPost IOException :: ${e.message()}")
+            _videoPost.value = Resource.Error(e.message!!)
         }
     }
+
+    private fun handleVideoResponse(response: Response<Video>): Resource<Video> {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 
     private fun makeMultiPartBodyPart(filePart: String): MultipartBody.Part {
         val path = filePart.toUri().path!!

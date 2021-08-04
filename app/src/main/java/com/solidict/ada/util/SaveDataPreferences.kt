@@ -26,22 +26,11 @@ constructor(
     private val videoIdTag = stringPreferencesKey(VIDEO_ID_TAG)
 
     suspend fun saveVideoId(value: String) {
+        clearVideoId()
         context.videoId.edit { videoId ->
             videoId[videoIdTag] = value
         }
         Log.d(TAG, "SaveDataPreferences saveVideoId:: ${context.videoId.data.first()}")
-    }
-
-    suspend fun readVideoId(): String? {
-        val preferences = context.videoId.data.first()
-        Log.d(TAG, "SaveDataPreferences readVideoId :: ${preferences[videoIdTag]}")
-        return preferences[videoIdTag]
-    }
-
-    suspend fun clearVideoId() {
-        context.videoId.edit { videoId ->
-            videoId[videoIdTag] = ""
-        }
     }
 
     suspend fun saveVideoUri(value: String) {
@@ -52,10 +41,36 @@ constructor(
         Log.d(TAG, "SaveDataPreferences saveVideoUri:: ${context.videoPart.data.first()}")
     }
 
+    suspend fun saveToken(value: String) {
+        clearToken()
+        context.token.edit { token ->
+            token[tokenCodeTag] = value
+        }
+        Log.d(TAG, "SaveDataPreferences saveToken:: ${context.token.data.first()}")
+    }
+
+    suspend fun readVideoId(): String? {
+        val preferences = context.videoId.data.first()
+        Log.d(TAG, "SaveDataPreferences readVideoId :: ${preferences[videoIdTag]}")
+        return preferences[videoIdTag]
+    }
+
     suspend fun readVideoUri(): String? {
         val preferences = context.videoPart.data.first()
         Log.d(TAG, "SaveDataPreferences saveVideoUri :: ${preferences[videoPartTag]}")
         return preferences[videoPartTag]
+    }
+
+    suspend fun readToken(): String? {
+        val preferences = context.token.data.first()
+        Log.d(TAG, "SaveDataPreferences readToken :: ${preferences[tokenCodeTag]}")
+        return preferences[tokenCodeTag]
+    }
+
+    suspend fun clearVideoId() {
+        context.videoId.edit { videoId ->
+            videoId[videoIdTag] = ""
+        }
     }
 
     suspend fun clearVideoUri() {
@@ -64,17 +79,10 @@ constructor(
         }
     }
 
-    suspend fun saveToken(value: String) {
-        context.token.edit { token ->
-            token[tokenCodeTag] = value
+    private suspend fun clearToken() {
+        context.videoPart.edit { videoPart ->
+            videoPart[videoPartTag] = ""
         }
-        Log.d(TAG, "SaveDataPreferences saveToken:: ${context.token.data.first()}")
-    }
-
-    suspend fun readToken(): String? {
-        val preferences = context.token.data.first()
-        Log.d(TAG, "SaveDataPreferences readToken :: ${preferences[tokenCodeTag]}")
-        return preferences[tokenCodeTag]
     }
 
     companion object {

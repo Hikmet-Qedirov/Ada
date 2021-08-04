@@ -157,11 +157,14 @@ class VideoCompletedFragment : Fragment() {
         Log.d(TAG, "video file is ::: $videoFile")
         val fileProvider = FileProvider.getUriForFile(
             requireContext(),
-            "com.solidict.ada.provider", videoFile
+            "com.solidict.ada.provider",
+            videoFile
         )
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_DURATION_LIMIT, CAMERA_RECORD_TIME_LIMIT)
             putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+            putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)
+
             flags = (Intent.FLAG_GRANT_READ_URI_PERMISSION
                     or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION

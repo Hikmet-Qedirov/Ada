@@ -52,12 +52,6 @@ class VideosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val job = Job()
-        CoroutineScope(Dispatchers.Main + job).launch {
-            saveDataPreferences.clearVideoId()
-            saveDataPreferences.clearVideoUri()
-            job.cancel()
-        }
         loadingDialog = Dialog(requireContext())
         loadingDialog.showLoadingDialogConfig()
         messageDialog = Dialog(requireContext())

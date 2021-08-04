@@ -12,8 +12,16 @@ import com.solidict.ada.util.Constants.Companion.NOTIFICATION_CHANNEL_ID
 import com.solidict.ada.util.Constants.Companion.NOTIFICATION_CHANNEL_NAME
 import com.solidict.ada.util.Constants.Companion.START_UPLOAD_SERVICE
 import com.solidict.ada.util.Constants.Companion.STOP_UPLOAD_SERVICE
+import com.solidict.ada.util.Resource
+import com.solidict.ada.util.SaveDataPreferences
 import com.solidict.ada.viewmodel.VideoViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "TestUploadService"
@@ -29,6 +37,9 @@ class UploadService : LifecycleService() {
     @Inject
     lateinit var viewModel: VideoViewModel
 
+    @Inject
+    lateinit var saveDataPreferences: SaveDataPreferences
+
     private lateinit var currentNotificationBuilder: NotificationCompat.Builder
 
     override fun onCreate() {
@@ -37,10 +48,22 @@ class UploadService : LifecycleService() {
         if (!isServiceKilled) {
             viewModel.videoPost.observe(this) { videoResponse ->
                 if (videoResponse != null) {
-                    if (videoResponse.isSuccessful) {
-                        updateNotificationState(true)
-                    } else {
-                        updateNotificationState(false)
+                    when (videoResponse) {
+                        is Resource.Success -> {
+                            val job = Job()
+                            CoroutineScope(Dispatchers.Default + job).launch {
+                                saveDataPreferences.clearVideoId()
+                                saveDataPreferences.clearVideoUri()
+                                job.cancel()
+                            }
+                            updateNotificationState(true)
+                        }
+                        is Resource.Error -> {
+                            updateNotificationState(false)
+                        }
+                        is Resource.Loading -> {
+                            //gelecekte yeni fonksiyonlar icin
+                        }
                     }
                 }
             }
@@ -115,7 +138,6 @@ class UploadService : LifecycleService() {
             set(currentNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
         if (!isServiceKilled) {
-
             currentNotificationBuilder = baseNotificationBuilder.apply {
                 if (isDone) {
                     addAction(
