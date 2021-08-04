@@ -182,7 +182,7 @@ class VideoCompletedFragment : Fragment() {
     // TODO: 7/29/2021 video record size change
     companion object {
         //        private const val CAMERA_RECORD_TIME_LIMIT = 3 * 60
-        private const val CAMERA_RECORD_TIME_LIMIT = 4
+        private const val CAMERA_RECORD_TIME_LIMIT = 2
     }
 
     override fun onDestroyView() {

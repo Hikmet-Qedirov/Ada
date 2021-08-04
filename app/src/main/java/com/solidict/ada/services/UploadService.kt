@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -20,8 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "TestUploadService"
@@ -105,6 +104,7 @@ class UploadService : LifecycleService() {
     }
 
     private fun startForegroundService() {
+        Build.VERSION_CODES.O
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)
@@ -114,20 +114,18 @@ class UploadService : LifecycleService() {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun updateNotificationState(isDone: Boolean) {
-        val actionText = if (isDone) getString(R.string.ok) else getString(R.string.retry)
+        val actionText = getString(R.string.ok)
         val contentText =
             if (isDone) getString(R.string.notification_video_post_success) else getString(R.string.notification_video_post_error)
-        val pendingIntent = if (isDone) {
-            val doneIntent = Intent(this, UploadService::class.java).apply {
-                action = STOP_UPLOAD_SERVICE
-            }
-            PendingIntent.getService(this, 1, doneIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        } else {
-            val errorIntent = Intent(this, UploadService::class.java).apply {
-                action = START_UPLOAD_SERVICE
-            }
-            PendingIntent.getService(this, 2, errorIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val doneIntent = Intent(this, UploadService::class.java).apply {
+            action = STOP_UPLOAD_SERVICE
         }
+        val pendingIntent =
+            PendingIntent
+                .getService(
+                    this, 1,
+                    doneIntent, PendingIntent.FLAG_CANCEL_CURRENT
+                )
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -139,22 +137,17 @@ class UploadService : LifecycleService() {
         }
         if (!isServiceKilled) {
             currentNotificationBuilder = baseNotificationBuilder.apply {
-                if (isDone) {
-                    addAction(
-                        R.drawable.ic_success,
-                        actionText, pendingIntent
-                    )
-                } else {
-                    addAction(
-                        R.drawable.ic_time_custom,
-                        actionText, pendingIntent
-                    )
-                }
-                setContentIntent(pendingIntent)
+                addAction(
+                    R.drawable.ic_success,
+                    actionText, pendingIntent
+                )
                 setProgress(0, 0, false)
                 setContentText(contentText)
             }
-            notificationManager.notify(NOTIFICATION_ID, currentNotificationBuilder.build())
+            notificationManager.notify(
+                NOTIFICATION_ID,
+                currentNotificationBuilder.build()
+            )
         }
     }
 

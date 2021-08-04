@@ -16,6 +16,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -30,9 +31,7 @@ object MainAppModule {
     @Singleton
     @Provides
     @Named("BASE_URL")
-    fun provideBaseUrl(): String {
-        return "http://ec2-52-17-33-184.eu-west-1.compute.amazonaws.com:8080"
-    }
+    fun provideBaseUrl() =  "http://ec2-52-17-33-184.eu-west-1.compute.amazonaws.com:8080"
 
     @Singleton
     @Provides
@@ -45,17 +44,15 @@ object MainAppModule {
         chain.proceed(request)
     }
 
-
     @Singleton
     @Provides
     fun provideClient(
         interceptor: Interceptor,
-    ): OkHttpClient {
-        return OkHttpClient
-            .Builder()
-            .addInterceptor(interceptor)
-            .build()
-    }
+    ): OkHttpClient = OkHttpClient
+        .Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
+        .build()
 
     @Singleton
     @Provides
@@ -94,4 +91,5 @@ object MainAppModule {
     fun provideVideoRepository(
         adaServiceApi: AdaServiceApi,
     ) = VideoRepository(adaServiceApi)
+
 }
