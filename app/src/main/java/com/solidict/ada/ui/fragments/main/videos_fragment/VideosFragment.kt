@@ -79,10 +79,9 @@ class VideosFragment : Fragment() {
             setHasFixedSize(true)
         }
         videoAdapter.setOnItemClickListener { video ->
-            val videoId = video.id
             val job = Job()
             CoroutineScope(Dispatchers.Main + job).launch {
-                saveDataPreferences.saveVideoId(videoId.toString())
+                saveDataPreferences.saveVideoId(video.id.toString())
                 findNavController().navigate(VideosFragmentDirections.actionVideosFragmentToNavigaitonVideoRecord())
                 job.cancel()
             }
@@ -101,8 +100,7 @@ class VideosFragment : Fragment() {
                 binding.root,
                 getString(R.string.lost_internet_connection),
                 Snackbar.LENGTH_LONG
-            )
-                .show()
+            ).show()
         }
     }
 

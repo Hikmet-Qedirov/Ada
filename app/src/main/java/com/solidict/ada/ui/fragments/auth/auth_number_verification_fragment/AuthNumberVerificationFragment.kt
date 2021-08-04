@@ -6,7 +6,6 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,23 +38,17 @@ class AuthNumberVerificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        editTextConfiguration()
         goBackButtonConfiguration()
         loadingDialog = Dialog(requireContext())
         connectionDialog = Dialog(requireContext())
         errorDialog = Dialog(requireContext())
         loadingDialog.showLoadingDialogConfig()
         connectionDialog.showInternetStateConnection()
-        observeUserCheck()
-        observeAuth()
         verificationGoOnButtonConfiguration()
         resendCodeConfig()
-    }
-
-    private fun editTextConfiguration() {
-        binding.authNumberVerificationEditText.doOnTextChanged { text, _, _, _ ->
-            binding.authNumberVerificationGoOnButton.isEnabled = !text.isNullOrBlank()
-        }
+        observeAuth()
+        observeAuthValidate()
+        observeUserCheck()
     }
 
     private fun observeAuth() {
@@ -66,28 +59,15 @@ class AuthNumberVerificationFragment : Fragment() {
                         binding.root,
                         getString(R.string.success_submit_code_again),
                         Snackbar.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 } else {
                     Snackbar.make(
                         binding.root,
                         authResponse.message(),
                         Snackbar.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
             }
-        }
-    }
-    private fun observeAuthValidateConfig(code: String) {
-        loadingDialog.show()
-        if (hasInternetConnection(requireContext())) {
-            viewModel.authValidate(args.authResponse.id, code)
-            observeAuthValidate()
-        } else {
-            binding.authNumberVerificationGoOnButton.isEnabled = true
-            loadingDialog.dismiss()
-            connectionDialog.show()
         }
     }
 
@@ -124,7 +104,14 @@ class AuthNumberVerificationFragment : Fragment() {
             val verificationCode = binding.authNumberVerificationEditText.text?.toString()
             if (verificationCode != null) {
                 if (verificationCode.isNotEmpty()) {
-                    observeAuthValidateConfig(verificationCode)
+                    loadingDialog.show()
+                    if (hasInternetConnection(requireContext())) {
+                        viewModel.authValidate(args.authResponse.id, verificationCode)
+                    } else {
+                        binding.authNumberVerificationGoOnButton.isEnabled = true
+                        loadingDialog.dismiss()
+                        connectionDialog.show()
+                    }
                 }
             } else {
                 binding.authNumberVerificationGoOnButton.isEnabled = true
@@ -135,7 +122,7 @@ class AuthNumberVerificationFragment : Fragment() {
     }
 
     private fun observeUserCheck() {
-        viewModel.userCheck.observe(viewLifecycleOwner,{userCheckResponse->
+        viewModel.userCheck.observe(viewLifecycleOwner, { userCheckResponse ->
             if (userCheckResponse != null) {
                 if (userCheckResponse.isSuccessful) {
                     loadingDialog.dismiss()

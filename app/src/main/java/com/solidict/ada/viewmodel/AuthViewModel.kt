@@ -95,7 +95,6 @@ constructor(
         if (response.isSuccessful) {
             val token = response.body()!!.token
             saveDataPreferences.saveToken(token)
-            userCheck
         }
         _authValidate.value = response
         Log.d(

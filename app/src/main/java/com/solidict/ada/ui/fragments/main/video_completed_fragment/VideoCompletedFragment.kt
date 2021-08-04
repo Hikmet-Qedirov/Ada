@@ -89,12 +89,10 @@ class VideoCompletedFragment : Fragment() {
                         Intent(requireContext(), UploadService::class.java).also {
                             it.action = START_UPLOAD_SERVICE
                             requireContext().startService(it)
+                            findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
                         }
-                        findNavController().navigate(VideoCompletedFragmentDirections.actionVideoCompletedFragmentToVideoStatusFragment())
                         job.cancel()
                     }
-
-
                 } else {
                     Snackbar.make(
                         binding.root,
