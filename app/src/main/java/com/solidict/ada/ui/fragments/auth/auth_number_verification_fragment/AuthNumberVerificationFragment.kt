@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,6 +40,7 @@ class AuthNumberVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         goBackButtonConfiguration()
+
         loadingDialog = Dialog(requireContext())
         connectionDialog = Dialog(requireContext())
         errorDialog = Dialog(requireContext())
@@ -79,7 +81,11 @@ class AuthNumberVerificationFragment : Fragment() {
                 } else {
                     loadingDialog.dismiss()
                     binding.authNumberVerificationGoOnButton.isEnabled = true
-                    Snackbar.make(binding.root, getString(R.string.retry_error), Snackbar.LENGTH_LONG)
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.retry_error),
+                        Snackbar.LENGTH_LONG
+                    )
                         .show()
                 }
             }
@@ -98,6 +104,11 @@ class AuthNumberVerificationFragment : Fragment() {
     }
 
     private fun verificationGoOnButtonConfiguration() {
+        binding.authNumberVerificationEditText.doOnTextChanged { text, _, _, _ ->
+            binding.authNumberVerificationGoOnButton.isEnabled = !text.isNullOrEmpty()
+        }
+
+
         binding.authNumberVerificationGoOnButton.setOnClickListener {
             binding.authNumberVerificationGoOnButton.isEnabled = false
             binding.authNumberVerificationGoOnButton.closeKeyboard()
