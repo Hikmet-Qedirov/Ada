@@ -178,10 +178,8 @@ class VideoCompletedFragment : Fragment() {
         mediaController.setAnchorView(binding.imageViewVideo)
     }
 
-    // TODO: 7/29/2021 video record size change
     companion object {
-        //        private const val CAMERA_RECORD_TIME_LIMIT = 3 * 60
-        private const val CAMERA_RECORD_TIME_LIMIT = 10
+        private const val CAMERA_RECORD_TIME_LIMIT = 3 * 60
     }
 
     override fun onDestroyView() {
