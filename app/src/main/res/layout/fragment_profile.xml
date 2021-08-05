@@ -258,7 +258,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button_outline_bg"
                     android:enabled="true"
-                    android:text="@string/request_report" />
+                    android:text="@string/contact_us" />
             </LinearLayout>
 
         </LinearLayout>

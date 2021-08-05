@@ -163,7 +163,6 @@ class VideoCompletedFragment : Fragment() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_DURATION_LIMIT, CAMERA_RECORD_TIME_LIMIT)
             putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-            putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)
             flags = (Intent.FLAG_GRANT_READ_URI_PERMISSION
                     or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -179,7 +178,7 @@ class VideoCompletedFragment : Fragment() {
     }
 
     companion object {
-        private const val CAMERA_RECORD_TIME_LIMIT = 3 * 60
+        private const val CAMERA_RECORD_TIME_LIMIT = 180
     }
 
     override fun onDestroyView() {
