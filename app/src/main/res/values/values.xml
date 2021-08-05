@@ -13,6 +13,7 @@
     <dimen name="cartImageView">194dp</dimen>
     <dimen name="cartCircleIconBackgroundSize">48dp</dimen>
     <integer name="phone_number_max_length">10</integer>
+    <integer name="name_max_length">40</integer>
     <dimen name="subButtonTextSize">10sp</dimen>
     <dimen name="camera_button_size">72dp</dimen>
     <dimen name="camera_icon_size">48dp</dimen>

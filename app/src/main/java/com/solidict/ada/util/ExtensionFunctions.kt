@@ -22,6 +22,7 @@ import com.solidict.ada.util.Constants.Companion.CONTACT_US_MAIL
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 fun hasInternetConnection(context: Context): Boolean {
@@ -39,7 +40,7 @@ fun hasInternetConnection(context: Context): Boolean {
 }
 
 fun String.nameValidation(): Boolean {
-    val regex = "^[0-9-]+$".toRegex()
+    val regex = "^[0-9]*\$".toRegex()
     return this.isNotEmpty()
             && this.trim().length >= 2
             && !this.emailValidation()
@@ -49,13 +50,13 @@ fun String.nameValidation(): Boolean {
 fun String.phoneNumberValidation(context: Context): Boolean {
     val number = this.trim()
     val regex = "^[0-9-]+$".toRegex()
-    return number.isNotEmpty() && number.length == context.resources.getInteger(R.integer.phone_number_max_length) && this.matches(
-        regex
-    )
+    return number.isNotEmpty()
+            && number.length == context.resources.getInteger(R.integer.phone_number_max_length)
+            && this.matches(regex)
 }
 
 fun Int.birthWeightValidation(): Boolean {
-    return this > 500
+    return "$this".isNotEmpty() && this > 10000
 }
 
 fun String.emailValidation(): Boolean {

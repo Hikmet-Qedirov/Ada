@@ -279,10 +279,14 @@ class AuthLoginFragment : Fragment() {
         binding.authLoginGoOnButton.setOnClickListener {
             binding.authLoginGoOnButton.isEnabled = false
             val name = binding.authLoginNameTextInputEditText.text?.toString()
+            Log.d(TAG, "name : $name")
             val birthWeight = binding.authLoginBirthWeightTextInputEditText.text?.toString()
+            Log.d(TAG, "birthWeight : $birthWeight")
             val doctorName = binding.authLoginReferringDoctorNameTextInputEditText.text?.toString()
+            Log.d(TAG, "doctorName : $doctorName")
             val emailAddress =
                 binding.authLoginRequiredEmailAddressTextInputEditText.text?.toString()
+            Log.d(TAG, "emailAddress : $emailAddress")
 
             if (name !== null) {
                 if (name.isNotEmpty() && name.nameValidation()) {
@@ -295,11 +299,11 @@ class AuthLoginFragment : Fragment() {
             }
             if (childExpectedDate.trim().isEmpty()) {
                 binding.authLoginExpectedDateOfBirthTextInputLayout.error =
-                    getString(R.string.wrong_birgth_date)
+                    getString(R.string.wrong_actual_birth_date)
             }
             if (childActualDate.trim().isEmpty()) {
                 binding.authLoginActualDateOfBirthTextInputLayout.error =
-                    getString(R.string.wrong_birgth_date)
+                    getString(R.string.wrong_birth_date)
             }
             if (birthWeight !== null) {
                 if (birthWeight.isNotEmpty() && birthWeight.toInt().birthWeightValidation()) {

@@ -10,7 +10,7 @@
     <string name="terms_of_use">Kullanım Koşulları</string>
     <string name="verification_code">Doğrulama Kodu</string>
     <string name="submit_code_again">Tekrar Kod Gönder</string>
-    <string name="please_enter_your_childs_information">Lütfen çocuğunuzun bilgilerini girin</string>
+    <string name="please_enter_your_child_information">Lütfen çocuğunuzun bilgilerini girin</string>
     <string name="name_surname">İsim Soyisim</string>
     <string name="expected_date_of_birth">Beklenen Doğum Tarihi</string>
     <string name="actual_date_of_birth">Gerçek Doğum Tarihi</string>
@@ -79,7 +79,8 @@
     <string name="wrong_name">İsim yanlış</string>
     <string name="wrong_weight">Doğum kilosu yanlış</string>
     <string name="wrong_doctor_name">Doktor ismi yanlış</string>
-    <string name="wrong_birgth_date">Doğum tarihi yanlış</string>
+    <string name="wrong_birth_date">Doğum tarihi yanlış</string>
+    <string name="wrong_actual_birth_date">Doğum tarihi yanlış</string>
     <string name="warn_date_picker">Tarih belirlemeniz gereklidir</string>
     <string name="wrong_date_picker">Gelecek tarih belirlenemez</string>
     <string name="error_check_box">
