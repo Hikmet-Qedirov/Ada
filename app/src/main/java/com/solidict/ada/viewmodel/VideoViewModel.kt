@@ -1,7 +1,7 @@
 package com.solidict.ada.viewmodel
 
+import android.content.Context
 import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,15 +10,11 @@ import com.solidict.ada.model.video.Video
 import com.solidict.ada.repositories.VideoRepository
 import com.solidict.ada.util.Resource
 import com.solidict.ada.util.SaveDataPreferences
+import com.solidict.ada.util.makeMultiPartBodyPart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
@@ -93,17 +89,4 @@ constructor(
     }
 
 
-    private fun makeMultiPartBodyPart(filePart: String): MultipartBody.Part {
-        val path = filePart.toUri().path!!
-        Log.d(TAG, "makeMultiPartBodyPart path : $path")
-        val file = File(path)
-        Log.d(TAG, "makeMultiPartBodyPart file : $file")
-
-        return MultipartBody.Part.createFormData(
-            "file",
-            file.name,
-            file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        )
-
-    }
 }

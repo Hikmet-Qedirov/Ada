@@ -112,7 +112,7 @@ class UploadService : LifecycleService() {
         startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
+    @SuppressLint("UnspecifiedImmutableFlag", "LaunchActivityFromNotification")
     private fun updateNotificationState(isDone: Boolean) {
         val actionText = getString(R.string.ok)
         val contentText =
@@ -141,6 +141,7 @@ class UploadService : LifecycleService() {
                     R.drawable.ic_success,
                     actionText, pendingIntent
                 )
+                setContentIntent(pendingIntent)
                 setProgress(0, 0, false)
                 setContentText(contentText)
             }

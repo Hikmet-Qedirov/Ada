@@ -76,6 +76,7 @@ dependencies {
 
     //Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
 }
 kapt {
     correctErrorTypes true

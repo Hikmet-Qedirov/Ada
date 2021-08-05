@@ -17,13 +17,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.solidict.ada.R
 import com.solidict.ada.util.Constants.Companion.CONTACT_US_MAIL
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+
 
 fun hasInternetConnection(context: Context): Boolean {
     val connectivityManager = context.getSystemService(
@@ -146,4 +149,15 @@ fun getVideoFile(context: Context): File {
         Environment.DIRECTORY_MOVIES
     )
     return File.createTempFile(fileName, ".mp4", storageDirectory)
+}
+
+fun makeMultiPartBodyPart(filePart: String): MultipartBody.Part {
+    val path = filePart.toUri().path!!
+    val file = File(path)
+
+    return MultipartBody.Part.createFormData(
+        "file",
+        file.name,
+        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+    )
 }
