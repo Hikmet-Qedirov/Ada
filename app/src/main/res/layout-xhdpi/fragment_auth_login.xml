@@ -61,8 +61,8 @@
                     android:minHeight="@dimen/minButtonHeight"
                     android:backgroundTint="@color/grey"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLength="@integer/phone_number_max_length"
+                    android:inputType="textPersonName"
+                    android:maxLength="@integer/name_max_length"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -305,8 +305,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/grey"
-                    android:inputType="text"
-                    android:maxLength="@integer/phone_number_max_length"
+                    android:inputType="textPersonName"
+                    android:maxLength="@integer/name_max_length"
                     android:minHeight="@dimen/minButtonHeight"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>

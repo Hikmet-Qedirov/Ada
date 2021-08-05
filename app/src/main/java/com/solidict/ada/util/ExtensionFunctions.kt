@@ -40,11 +40,11 @@ fun hasInternetConnection(context: Context): Boolean {
 }
 
 fun String.nameValidation(): Boolean {
-    val regex = "^[0-9]*\$".toRegex()
+    val regex = "^[a-zA-ZğüşöçİĞÜŞÖÇ\\s]+$".toRegex()
     return this.isNotEmpty()
             && this.trim().length >= 2
             && !this.emailValidation()
-            && !this.matches(regex)
+            && this.matches(regex)
 }
 
 fun String.phoneNumberValidation(context: Context): Boolean {
@@ -56,7 +56,7 @@ fun String.phoneNumberValidation(context: Context): Boolean {
 }
 
 fun Int.birthWeightValidation(): Boolean {
-    return "$this".isNotEmpty() && this > 10000
+    return "$this".isNotEmpty() && this < 10000 && this > 777
 }
 
 fun String.emailValidation(): Boolean {
